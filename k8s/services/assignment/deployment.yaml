@@ -5,41 +5,65 @@ metadata:
   namespace: assignment
 spec:
   replicas: 2
-  selector: { matchLabels: { app: assignment } }
+  selector:
+    matchLabels:
+      app: assignment
   template:
-    metadata: { labels: { app: assignment } }
+    metadata:
+      labels:
+        app: assignment
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: app
           image: docker.io/ale175/service-assignment:latest
           imagePullPolicy: Always
-          ports: [{ containerPort: 5050 }]
+          ports:
+            - containerPort: 5050
           env:
-            - name: MONGODB_URI
-              valueFrom: { configMapKeyRef: { name: assignment-config, key: MONGO_URI } }
-            - name: MONGODB_DB_NAME
-              valueFrom: { configMapKeyRef: { name: assignment-config, key: MONGO_DB_NAME } }
+            # === JWT: letti direttamente dal Secret ===
+            - name: JWT_ALGORITHM
+              value: RS256                       # o il tuo algoritmo
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-keys                 # Secret esistente nel ns assignment
+                  key: jwt_public.pem
+            - name: JWT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-keys
+                  key: jwt_private.pem
+
+            # === Mongo: letti da ConfigMap ===
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: assignment-config        # Deve contenere MONGO_URI
+                  key: MONGO_URI
+            - name: MONGO_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: assignment-config        # Deve contenere MONGO_DB_NAME
+                  key: MONGO_DB_NAME
+
           readinessProbe:
-            httpGet: { path: /api/v1/health, port: 5050 }
+            httpGet:
+              path: /api/v1/health
+              port: 5050
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
-            httpGet: { path: /api/v1/health, port: 5050 }
+            httpGet:
+              path: /api/v1/health
+              port: 5050
             initialDelaySeconds: 10
             periodSeconds: 10
-          volumeMounts:
-            - name: jwt-keys
-              mountPath: /run/secrets
-              readOnly: true
+
           resources:
-            requests: { cpu: "100m", memory: "128Mi" }
-            limits:   { cpu: "500m", memory: "512Mi" }
-      volumes:
-        - name: jwt-keys
-          secret:
-            secretName: jwt-keys
-            items:
-              - key: jwt_public.pem
-                path: jwt_public.pem
-              - key: jwt_private.pem
-                path: jwt_private.pem
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
