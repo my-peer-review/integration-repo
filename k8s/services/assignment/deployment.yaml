@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assignment
+  namespace: assignment
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: assignment } }
+  template:
+    metadata: { labels: { app: assignment } }
+    spec:
+      containers:
+        - name: app
+          image: localhost:32000/assignment:1.0.0
+          ports: [{ containerPort: 5050 }]
+          env:
+            - name: MONGODB_URI
+              valueFrom: { configMapKeyRef: { name: assignment-config, key: MONGO_URI } }
+            - name: MONGODB_DB_NAME
+              valueFrom: { configMapKeyRef: { name: assignment-config, key: MONGO_DB_NAME } }
+          readinessProbe:
+            httpGet: { path: /api/v1/health, port: 5050 }
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /api/v1/health, port: 5050 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: jwt-keys
+              mountPath: /run/secrets
+              readOnly: true
+          resources:
+            requests: { cpu: "100m", memory: "128Mi" }
+            limits:   { cpu: "500m", memory: "512Mi" }
+      volumes:
+        - name: jwt-keys
+          secret:
+            secretName: jwt-keys
+            items:
+              - key: jwt_public.pem
+                path: jwt_public.pem
+              - key: jwt_private.pem
+                path: jwt_private.pem

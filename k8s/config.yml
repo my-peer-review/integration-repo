@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assignment-config
+  namespace: assignment
+data:
+  MONGO_DB_NAME: "assignment"
+  # Se Mongo senza auth:
+  MONGO_URI: "mongodb://mongodb.assignment.svc.cluster.local:27017/assignment"
