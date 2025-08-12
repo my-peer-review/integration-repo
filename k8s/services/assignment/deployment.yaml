@@ -12,6 +12,7 @@ spec:
       containers:
         - name: app
           image: docker.io/ale175/service-assignment:latest
+          imagePullPolicy: Always
           ports: [{ containerPort: 5050 }]
           env:
             - name: MONGODB_URI
