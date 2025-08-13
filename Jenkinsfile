@@ -1,84 +1,84 @@
 pipeline {
-  agent { label 'unit-test' }
+  agent { label 'integration-test' }
+
+  parameters {
+    // Se chiamato da un microservizio, passa SERVICE_NAME e TRIGGER_TYPE=single
+    string(name: 'SERVICE_NAME', defaultValue: 'assignment', description: 'Nome del microservizio (solo per trigger single)')
+    choice(name: 'TRIGGER_TYPE', choices: ['push', 'single'], description: 'push=deploy completo; single=rollout del servizio')
+  }
 
   environment {
-    // ---- config progetto ----
-    ENV             = 'unit-test'
-    CI_IMAGE_NAME   = 'assignments-pytest'
-    APP_IMAGE_NAME  = 'ale175/service-assignment'     // <user>/<repo>
-    DOCKERHUB_CREDS = 'dockerhub-creds'               // ID credenziale Jenkins
-
-    // job multibranch di integrazione (folder/repo/branch)
-    INTEGRATION_JOB = 'peer-review-pipeline/integration-repo/main'
+    MK8S    = "/snap/bin/microk8s"
+    K8S_DIR = "k8s"
+    // fallback robusti anche in multibranch
+    SVC     = "${params.SERVICE_NAME ?: 'assignment'}"
+    MODE    = "${params.TRIGGER_TYPE ?: 'push'}"
   }
 
   stages {
-    stage('Build CI Image') {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+
+    stage('Cluster Ready') {
       steps {
-        echo "Costruisco immagine CI…"
-        sh 'docker build -t "${CI_IMAGE_NAME}" -f Dockerfile.unit .'
+        sh """
+          ${MK8S} status --wait-ready
+          ${MK8S} kubectl version --client=true
+        """
       }
     }
 
-    stage('Run Python Unit Tests') {
-      steps {
-        echo "Eseguo test unitari…"
-        sh '''
-          docker run --rm \
-            --user "$(id -u)":"$(id -g)" \
-            -e ENV="${ENV}" \
-            -v "${PWD}:/work" -w /work \
-            "${CI_IMAGE_NAME}" pytest -v test/pytest
-        '''
-      }
+    stage('Deploy FULL (trigger=push)') {
+    when { expression { env.MODE == 'push' } }
+    steps {
+        echo "🚀 Deploy completo dell'ambiente di test"
+
+        sh """
+        set -e
+
+        # 1) Namespace
+        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" || true
+
+        # 2) Databases
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases" || true
+
+        # 3) Services
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services" || true
+
+        # 4) Config, Secrets, Ingress
+        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
+        """
+    }
     }
 
-    // Solo se questa build è una Pull Request il cui target è "main"
-    stage('Build & Push App Image (:latest) — PR→main') {
-      when {
-        allOf {
-          changeRequest()                               // è una PR
-          expression { return env.CHANGE_TARGET == 'main' }  // target main
-        }
-      }
+    stage('Rollout SINGLE (trigger=single)') {
+      when { expression { env.MODE == 'single' } }
       steps {
-        script {
-          docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDS) {
-            def appImage = docker.build("${APP_IMAGE_NAME}", "-f Dockerfile .")
-            appImage.push("latest")                    // <- richiesto: sempre :latest
-          }
-        }
+        echo "♻️ Rollout del servizio: ${env.SVC}"
+        // Presupponiamo namespace == nome servizio (come stai facendo ora)
+        sh """
+          NS="${SVC}"
+
+          # (opzionale) Applica il deployment.yaml specifico del servizio se vuoi riallineare il manifest
+          if [ -f "${K8S_DIR}/services/${SVC}/deployment.yaml" ]; then
+            ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC}/deployment.yaml" -n "${NS}" || true
+          elif [ -f "${K8S_DIR}/services/${SVC}/deployment.yml" ]; then
+            ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC}/deployment.yml" -n "${NS}" || true
+          fi
+
+          # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
+          ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
+          ${MK8S} kubectl rollout status  deployment "${SVC}" -n "${NS}"
+        """
       }
     }
   }
 
   post {
-    success {
-      script {
-        // Trigger integrazione solo se PR→main
-        if (env.CHANGE_ID?.trim() && env.CHANGE_TARGET == 'main') {
-          echo "Trigger del job di integrazione: ${INTEGRATION_JOB}"
-          build job: INTEGRATION_JOB,
-                wait: false,
-                parameters: [
-                  string(name: 'SERVICE_NAME',  value: 'assignment'),
-                  string(name: 'TRIGGER_TYPE',  value: 'single')
-                  // IMAGE_TAG non necessario: in K8s usi imagePullPolicy: Always su :latest
-                ]
-        } else {
-          echo "Nessun trigger integrazione (non è PR→main)."
-        }
-      }
-    }
-    always {
-      sh '''
-        chmod -R u+rwX .pytest_cache || true
-        rm -rf .pytest_cache || true
-      '''
-      deleteDir()
-    }
-    failure {
-      echo "Pipeline fallita."
-    }
+    success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
+    failure { echo "❌ Deploy fallito — controlla i log" }
   }
 }
