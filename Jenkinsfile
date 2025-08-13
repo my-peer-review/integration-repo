@@ -72,6 +72,16 @@ pipeline {
         '''
         }
     }
+
+    stage('Run API Tests with Newman') {
+      steps {
+        sh '''
+          newman run ./test/postman/Assignments.postman_collection.json \
+            -e ./test/postman/Assignments.postman_environment.json \
+            --reporters cli,json
+        '''
+      }
+    }
   }
 
   post {
