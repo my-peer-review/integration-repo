@@ -62,7 +62,7 @@ pipeline {
                 wait: false,
                 parameters: [
                   string(name: 'SERVICE_NAME',  value: 'assignment'),
-                  string(name: 'TRIGGER_TYPE',  value: 'manual')
+                  string(name: 'TRIGGER_TYPE',  value: 'single')
                   // IMAGE_TAG non necessario: in K8s usi imagePullPolicy: Always su :latest
                 ]
         } else {
