@@ -51,29 +51,28 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
         """
-    }
+        }
     }
 
-    stage('Rollout SINGLE (trigger=single)') {
-      when { expression { env.MODE == 'single' } }
-      steps {
+    stage('Rollout SINGLE (trigger=manual)') {
+    when { expression { env.MODE == 'manual' } } // o 'single' se il tuo parametro si chiama così
+    steps {
         echo "♻️ Rollout del servizio: ${env.SVC}"
-        // Presupponiamo namespace == nome servizio (come stai facendo ora)
-        sh """
-          NS="${SVC}"
+        sh '''
+        set -e
+        NS="${SVC}"
+        DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
 
-          # (opzionale) Applica il deployment.yaml specifico del servizio se vuoi riallineare il manifest
-          if [ -f "${K8S_DIR}/services/${SVC}/deployment.yaml" ]; then
-            ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC}/deployment.yaml" -n "${NS}" || true
-          elif [ -f "${K8S_DIR}/services/${SVC}/deployment.yml" ]; then
-            ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC}/deployment.yml" -n "${NS}" || true
-          fi
+        # (opzionale) Applica il deployment specifico del servizio
+        if [ -f "${DEP}" ]; then
+            ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
+        fi
 
-          # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
-          ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
-          ${MK8S} kubectl rollout status  deployment "${SVC}" -n "${NS}"
-        """
-      }
+        # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
+        ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
+        ${MK8S} kubectl rollout status  deployment "${SVC}" -n "${NS}"
+        '''
+        }
     }
   }
 
