@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'unit-test' }
 
     parameters {
         string(name: 'SERVICE_NAME', defaultValue: 'assignment', description: 'Nome del microservizio')
