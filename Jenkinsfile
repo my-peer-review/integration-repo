@@ -3,54 +3,37 @@ pipeline {
 
     parameters {
         string(name: 'SERVICE_NAME', defaultValue: '', description: 'Nome del microservizio (es: assignment)')
-        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Tag dell\'immagine da deployare')
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Tag dell\'immagine Docker')
     }
 
     environment {
-        DOCKER_USER = 'ale175'
-        NAMESPACE = "${params.SERVICE_NAME}"
+        K8S_NAMESPACE = "${params.SERVICE_NAME}"  // namespace uguale al servizio
+        DEPLOY_PATH = "k8s/services/${params.SERVICE_NAME}/deployment.yaml"
     }
 
     stages {
-
-        stage('Checkout integration repo') {
+        stage('Check Parameters') {
             steps {
-                checkout scm
+                echo "Deploying service: ${params.SERVICE_NAME}"
+                echo "Using image tag: ${params.IMAGE_TAG}"
             }
         }
 
-        stage('Aggiorna deployment') {
-            steps {
-                script {
-                    def deployFile = "k8s/services/${SERVICE_NAME}/deployment.yaml"
-
-                    echo "Aggiorno immagine in ${deployFile} a ${DOCKER_USER}/${SERVICE_NAME}:${IMAGE_TAG}"
-
-                    sh """
-                        sed -i 's|image: .*${SERVICE_NAME}:.*|image: ${DOCKER_USER}/${SERVICE_NAME}:${IMAGE_TAG}|' ${deployFile}
-                    """
-                }
-            }
-        }
-
-        stage('Applica manifest su cluster') {
+        stage('Deploy to MicroK8s') {
             steps {
                 script {
                     sh """
-                        microk8s kubectl apply -f k8s/services/${SERVICE_NAME}/deployment.yaml -n ${NAMESPACE}
-                        microk8s kubectl apply -f k8s/services/${SERVICE_NAME}/service.yaml -n ${NAMESPACE}
-                    """
-                }
-            }
-        }
+                        # Verifica accesso al cluster
+                        microk8s status --wait-ready
 
-        stage('Rollout restart e verifica') {
-            steps {
-                script {
-                    sh """
-                        microk8s kubectl rollout restart deployment/${SERVICE_NAME} -n ${NAMESPACE}
-                        microk8s kubectl rollout status deployment/${SERVICE_NAME} -n ${NAMESPACE} --timeout=60s
-                        microk8s kubectl get pods -n ${NAMESPACE} -o wide
+                        # Applica sempre il manifest con imagePullPolicy: Always
+                        microk8s kubectl apply -f ${DEPLOY_PATH} -n ${K8S_NAMESPACE}
+
+                        # Forza il rollout per ricaricare i pod
+                        microk8s kubectl rollout restart deployment ${SERVICE_NAME} -n ${K8S_NAMESPACE}
+
+                        # Attende il completamento del rollout
+                        microk8s kubectl rollout status deployment ${SERVICE_NAME} -n ${K8S_NAMESPACE}
                     """
                 }
             }
@@ -59,10 +42,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deploy completato per ${SERVICE_NAME}:${IMAGE_TAG} nel namespace ${NAMESPACE}"
+            echo "✅ Deploy completato per ${params.SERVICE_NAME}:${params.IMAGE_TAG}"
         }
         failure {
-            echo "❌ Deploy fallito per ${SERVICE_NAME}:${IMAGE_TAG}"
+            echo "❌ Deploy fallito per ${params.SERVICE_NAME}:${params.IMAGE_TAG}"
         }
     }
 }
