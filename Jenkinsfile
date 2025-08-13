@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label 'integration-test' }
 
   parameters {
     // Se chiamato da un microservizio, passa SERVICE_NAME e TRIGGER_TYPE=single
