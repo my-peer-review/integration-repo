@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'unit-test' }
+    agent { label 'integration' }
 
     parameters {
         string(name: 'SERVICE_NAME', defaultValue: 'assignment', description: 'Nome del microservizio')
