@@ -9,16 +9,14 @@ spec:
     - host: api.local
       http:
         paths:
-          # esatto /api/v1/assignments
           - path: /api/v1/assignments
-            pathType: Exact
+            pathType: Prefix
             backend:
               service:
                 name: assignments-service
                 port:
                   number: 5050
-          # e le eventuali sottoroute /api/v1/assignments/...
-          - path: /api/v1/assignments/
+          - path: /api/v1/health
             pathType: Prefix
             backend:
               service:
