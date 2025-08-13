@@ -63,7 +63,6 @@ pipeline {
         NS="${SVC}"
         DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
 
-        # (opzionale) Applica il deployment specifico del servizio
         if [ -f "${DEP}" ]; then
             ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
         fi
