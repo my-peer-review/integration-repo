@@ -7,8 +7,10 @@ pipeline {
     }
 
     environment {
-        K8S_NAMESPACE = "${params.SERVICE_NAME}"
-        DEPLOY_PATH = "k8s/services/${params.SERVICE_NAME}/deployment.yaml"
+        SERVICE_NAME = "${params.SERVICE_NAME ?: 'assignment'}"
+        IMAGE_TAG = "${params.IMAGE_TAG ?: 'latest'}"
+        K8S_NAMESPACE = "${SERVICE_NAME}"
+        DEPLOY_PATH = "k8s/services/${SERVICE_NAME}/deployment.yaml"
     }
 
     stages {
