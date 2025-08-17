@@ -37,6 +37,9 @@ pipeline {
         sh """
         set -e
 
+        microk8s kubectl delete ingress assignments-ingress -n assignment --ignore-not-found
+        microk8s kubectl delete ingress submissions-ingress -n submission --ignore-not-found
+
         # 1) Namespace
         ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" || true
 
