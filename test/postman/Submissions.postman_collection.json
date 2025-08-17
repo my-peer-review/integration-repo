@@ -131,9 +131,9 @@
 					]
 				},
 				"url": {
-					"raw": "{{submissions_url_local}}/submissions",
+					"raw": "{{submissions_url}}/submissions",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"submissions"
@@ -181,8 +181,11 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"packages": {},
-						"type": "text/javascript"
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -242,9 +245,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url_local}}/assignments/{{assignment_id}}/submissions",
+					"raw": "{{submissions_url}}/assignments/{{assignment_id}}/submissions",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"assignments",
@@ -375,9 +378,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url_local}}/submissions/{{submission_id}}",
+					"raw": "{{submissions_url}}/submissions/{{submission_id}}",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"submissions",
@@ -470,9 +473,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url_local}}/submissions/{{submission_id}}",
+					"raw": "{{submissions_url}}/submissions/{{submission_id}}",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"submissions",
@@ -575,9 +578,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url_local}}/assignments/{{assignment_id}}/submissions",
+					"raw": "{{submissions_url}/assignments/{{assignment_id}}/submissions",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}"
 					],
 					"path": [
 						"assignments",
@@ -589,7 +592,7 @@
 			"response": []
 		},
 		{
-			"name": "helth_check Copy",
+			"name": "helth_check",
 			"request": {
 				"auth": {
 					"type": "jwt",
@@ -639,9 +642,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{submissions_url_local}}/health",
+					"raw": "{{submissions_url}}/health",
 					"host": [
-						"{{submissions_url_local}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"health"

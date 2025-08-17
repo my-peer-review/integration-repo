@@ -1,12 +1,15 @@
+# ───────────────────────── assignments (ns: assignment) ─────────────────────────
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: assignments-ingress
   namespace: assignment
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+      http:
         paths:
           - path: /api/v1/assignments
             pathType: Prefix
@@ -22,3 +25,43 @@ spec:
                 name: assignments-service
                 port:
                   number: 5050
+
+---
+# ───────────────────────── submissions (ns: submission) ────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: submissions-ingress
+  namespace: submission
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600" 
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+      http:
+        paths:
+          - path: /api/v1/assignments/[0-9a-fA-F-]+/submissions(/|$)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: submissions-service
+                port:
+                  number: 6060
+
+          - path: /api/v1/submissions
+            pathType: Prefix
+            backend:
+              service:
+                name: submissions-service
+                port:
+                  number: 6060
+          - path: /api/v1/files
+            pathType: Prefix
+            backend:
+              service:
+                name: submissions-service
+                port:
+                  number: 6060

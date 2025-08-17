@@ -115,9 +115,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments",
+					"raw": "{{assignment_url}}/api/v1/assignments",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -228,9 +228,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments",
+					"raw": "{{assignment_url}}/api/v1/assignments",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -340,9 +340,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments",
+					"raw": "{{assignment_url}}/api/v1/assignments",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -404,9 +404,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/health",
+					"raw": "{{assignment_url}}/api/v1/health",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -501,9 +501,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -533,8 +533,11 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"packages": {},
-						"type": "text/javascript"
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -587,9 +590,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
@@ -666,9 +669,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{base_url}}"
+						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
