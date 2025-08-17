@@ -49,13 +49,13 @@ spec:
 
           readinessProbe:
             httpGet:
-              path: /api/v1/health
+              path: /api/v1/submissions/health
               port: 6060
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /api/v1/health
+              path: /api/v1/submissions/health
               port: 6060
             initialDelaySeconds: 10
             periodSeconds: 10

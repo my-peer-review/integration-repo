@@ -404,13 +404,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/health",
+					"raw": "{{assignment_url}}/api/v1/assignments/health",
 					"host": [
 						"{{assignment_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
+						"assignments",
 						"health"
 					]
 				}

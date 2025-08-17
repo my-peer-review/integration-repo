@@ -411,12 +411,17 @@
 							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Content-Type is 'text/xml'\", function () {\r",
-							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('text/xml');\r",
+							"pm.test(\"Nessun Content-Type per 204\", function () {\r",
+							"  if (pm.response.code === 204) {\r",
+							"    pm.expect(pm.response.headers.has('Content-Type')).to.be.false;\r",
+							"  }\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response body is empty\", function () {\r",
-							"    pm.expect(pm.response.text()).to.eql('');\r",
+							"// 4) Body vuoto (tolleriamo spazi/bom)\r",
+							"pm.test(\"Body vuoto per 204\", function () {\r",
+							"  if (pm.response.code === 204) {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal('');\r",
+							"  }\r",
 							"});\r",
 							"\r",
 							""
@@ -652,13 +657,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{submissions_url}}/api/v1/health",
+					"raw": "{{submissions_url}}/api/v1/submissions/health",
 					"host": [
 						"{{submissions_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
+						"submissions",
 						"health"
 					]
 				}

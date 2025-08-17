@@ -18,13 +18,6 @@ spec:
                 name: assignments-service
                 port:
                   number: 5050
-          - path: /api/v1/health
-            pathType: Prefix
-            backend:
-              service:
-                name: assignments-service
-                port:
-                  number: 5050
 ---
 # ───────────────────────── submissions (ns: submission) ────────────────────────
 apiVersion: networking.k8s.io/v1
