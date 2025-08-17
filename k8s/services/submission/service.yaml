@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: submission-service
-  namespace: assignment
+  namespace: submission
 spec:
   type: ClusterIP
   selector:
-    app: assignment
+    app: submission
   ports:
     - port: 6060            
       targetPort: 6060
