@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: assignment
-  namespace: assignment
+  name: submission
+  namespace: submission
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: assignment
+      app: submission
   template:
     metadata:
       labels:
-        app: assignment
+        app: submission
     spec:
       automountServiceAccountToken: false
       containers:
         - name: app
-          image: docker.io/ale175/service-assignment:latest
+          image: docker.io/ale175/service-submission:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5050
+            - containerPort: 6060
           env:
             # === JWT: letti direttamente dal Secret ===
             - name: JWT_ALGORITHM
@@ -27,7 +27,7 @@ spec:
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-keys                 # Secret esistente nel ns assignment
+                  name: jwt-keys                 # Secret esistente nel ns submission
                   key: jwt_public.pem
             - name: JWT_PRIVATE_KEY
               valueFrom:
@@ -39,24 +39,24 @@ spec:
             - name: MONGO_URI
               valueFrom:
                 configMapKeyRef:
-                  name: assignment-config        # Deve contenere MONGO_URI
+                  name: submission-config        # Deve contenere MONGO_URI
                   key: MONGO_URI
-            - name: MONGO_DB_NAME_ASSIGNMENTS
+            - name: MONGO_DB_NAME_SUBMISSIONS
               valueFrom:
                 configMapKeyRef:
-                  name: assignment-config        # Deve contenere MONGO_DB_NAME
-                  key: MONGO_DB_NAME_ASSIGNMENTS
+                  name: submission-config        # Deve contenere MONGO_DB_NAME
+                  key: MONGO_DB_NAME_SUBMISSIONS
 
           readinessProbe:
             httpGet:
               path: /api/v1/health
-              port: 5050
+              port: 6060
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /api/v1/health
-              port: 5050
+              port: 6060
             initialDelaySeconds: 10
             periodSeconds: 10
 

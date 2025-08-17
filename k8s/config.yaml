@@ -4,6 +4,16 @@ metadata:
   name: assignment-config
   namespace: assignment
 data:
-  MONGO_DB_NAME: "assignment"
-  # Se Mongo senza auth:
-  MONGO_URI: "mongodb://mongodb.assignment.svc.cluster.local:27017/assignment"
+  MONGO_DB_NAME_ASSIGNMENTS: "assignment"
+  MONGO_URI_ASSIGNMENTS: "mongodb://mongodb.assignment.svc.cluster.local:27017/assignment"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: submission-config
+  namespace: submission
+data:
+  MONGO_DB_NAME_SUBMISSIONS: "submission"
+  MONGO_URI_SUBMISSIONS: "mongodb://mongodb.submission.svc.cluster.local:27017/submission"

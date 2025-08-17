@@ -73,17 +73,26 @@ pipeline {
         }
     }
 
-    stage('Run API Tests with Newman') {
+    stage('Run API Tests with Newman Assignments') {
       steps {
         sh '''
           newman run ./test/postman/Assignments.postman_collection.json \
-            -e ./test/postman/Assignments.postman_environment.json \
+            -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
         '''
       }
     }
-  }
 
+    stage('Run API Tests with Newman Submissions') {
+      steps {
+        sh '''
+          newman run ./test/postman/Submissions.postman_collection.json \
+            -e ./test/postman/postman-env.postman_environment.json
+            --reporters cli,json
+        ''' 
+      }
+    }
+      
   post {
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
     failure { echo "❌ Deploy fallito — controlla i log" }
