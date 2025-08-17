@@ -131,11 +131,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{submissions_url}}/submissions",
+					"raw": "{{submissions_url}/api/v1/submissions",
 					"host": [
-						"{{submissions_url}}"
+						"{{submissions_url}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"submissions"
 					]
 				}
@@ -245,11 +247,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url}}/assignments/{{assignment_id}}/submissions",
+					"raw": "{{submissions_url}}/api/v1/assignments/{{assignment_id}}/submissions",
 					"host": [
 						"{{submissions_url}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"assignments",
 						"{{assignment_id}}",
 						"submissions"
@@ -378,11 +382,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url}}/submissions/{{submission_id}}",
+					"raw": "{{submissions_url}}/api/v1/submissions/{{submission_id}}",
 					"host": [
 						"{{submissions_url}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"submissions",
 						"{{submission_id}}"
 					]
@@ -473,11 +479,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url}}/submissions/{{submission_id}}",
+					"raw": "{{submissions_url}}/api/v1/submissions/{{submission_id}}",
 					"host": [
 						"{{submissions_url}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"submissions",
 						"{{submission_id}}"
 					]
@@ -578,11 +586,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url}/assignments/{{assignment_id}}/submissions",
+					"raw": "{{submissions_url}}}/api/v1/assignments/{{assignment_id}}/submissions",
 					"host": [
-						"{{submissions_url}"
+						"{{submissions_url}}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"assignments",
 						"{{assignment_id}}",
 						"submissions"
@@ -642,11 +652,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{submissions_url}}/health",
+					"raw": "{{submissions_url}}/api/v1/health",
 					"host": [
 						"{{submissions_url}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"health"
 					]
 				}
