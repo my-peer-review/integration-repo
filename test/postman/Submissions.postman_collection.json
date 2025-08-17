@@ -121,7 +121,7 @@
 						{
 							"key": "files",
 							"type": "file",
-							"src": "postman-cloud:///1f07ade3-f1b2-4f80-8a08-41b22244a8e5"
+							"src": "./test/postman/test-assets/test.txt"
 						},
 						{
 							"key": "assignmentId",
