@@ -54,8 +54,8 @@ pipeline {
         }
     }
 
-    stage('Rollout SINGLE (trigger=sigle)') {
-    when { expression { env.MODE == 'single' } } // o 'single' se il tuo parametro si chiama così
+    stage('Rollout SINGLE (trigger=single)') {
+    when { expression { env.MODE == 'single' } }
     steps {
         echo "♻️ Rollout del servizio: ${env.SVC}"
         sh '''
@@ -92,6 +92,7 @@ pipeline {
         ''' 
       }
     }
+  }
       
   post {
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
