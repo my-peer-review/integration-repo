@@ -40,8 +40,8 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: assignment-config        # Deve contenere MONGO_URI
-                  key: MONGO_URI
-            - name: MONGO_DB_NAME_ASSIGNMENTS
+                  key: MONGO_URI_ASSIGNMENTS
+            - name: MONGO_DB_NAME
               valueFrom:
                 configMapKeyRef:
                   name: assignment-config        # Deve contenere MONGO_DB_NAME

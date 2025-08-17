@@ -55,13 +55,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: submissions-service
+                name: submission-service
                 port:
                   number: 6060
           - path: /api/v1/files
             pathType: Prefix
             backend:
               service:
-                name: submissions-service
+                name: submission-service
                 port:
                   number: 6060
