@@ -50,7 +50,9 @@
 							"});\r",
 							"\r",
 							"const location_assignament = pm.response.headers.get(\"Location\");\r",
-							"pm.environment.set(\"assignment_id\", location_assignament.split(\"/\").pop());"
+							"pm.environment.set(\"assignment_id\", location_assignament.split(\"/\").pop());\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}

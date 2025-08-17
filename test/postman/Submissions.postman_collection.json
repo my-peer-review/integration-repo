@@ -54,7 +54,6 @@
 							"\r",
 							"// aggiorna L’AMBIENTE, non la collection\r",
 							"pm.environment.set(\"submission_id\", json.submissionId);\r",
-							"pm.environment.set(\"assignment_id\", json.assignmentId);\r",
 							""
 						],
 						"type": "text/javascript",
