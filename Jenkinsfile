@@ -90,9 +90,9 @@ pipeline {
       steps {
         sh '''
           newman run ./test/postman/Submissions.postman_collection.json \
-            -e ./test/postman/postman-env.postman_environment.json
+            -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
-        ''' 
+        '''
       }
     }
   }
