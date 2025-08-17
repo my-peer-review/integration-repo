@@ -47,7 +47,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: submissions-service
+                name: submission-service
                 port:
                   number: 6060
           # Rotte standard di submissions

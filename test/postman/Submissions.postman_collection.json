@@ -586,9 +586,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{submissions_url}}}/api/v1/assignments/{{assignment_id}}/submissions",
+					"raw": "{{submissions_url}}/api/v1/assignments/{{assignment_id}}/submissions",
 					"host": [
-						"{{submissions_url}}}"
+						"{{submissions_url}}"
 					],
 					"path": [
 						"api",
