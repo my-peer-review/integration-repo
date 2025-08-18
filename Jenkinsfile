@@ -81,7 +81,6 @@ pipeline {
         sh '''
           newman run ./test/postman/Assignments.postman_collection.json \
             -e ./test/postman/postman-env.postman_environment.json \
-            --export-environment ./test/postman/_runtime_env.json \
             --reporters cli,json
         '''
       }
@@ -91,7 +90,7 @@ pipeline {
       steps {
         sh '''
           newman run ./test/postman/Submissions.postman_collection.json \
-            -e ./test/postman/_runtime_env.json \
+            -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
         '''
       }
