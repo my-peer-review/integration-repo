@@ -76,6 +76,16 @@ pipeline {
         }
     }
 
+    stage('Run API Tests with Newman user-manager') {
+      steps {
+        sh '''
+          newman run ./test/postman/Autenticazione.postman_collection.json \
+            -e ./test/postman/postman-env.postman_environment.json \
+            --reporters cli,json
+        '''
+      }
+    }
+
     stage('Run API Tests with Newman Assignments') {
       steps {
         sh '''

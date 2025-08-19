@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-manager
+  namespace: user-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-manager
+  template:
+    metadata:
+      labels:
+        app: user-manager
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: app
+          image: docker.io/ale175/service-user-manager:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6060
+          env:
+            # === JWT: letti direttamente dal Secret ===
+            - name: JWT_ALGORITHM
+              value: RS256                       # o il tuo algoritmo
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-keys                 # Secret esistente nel ns user-manager
+                  key: jwt_public.pem
+            - name: JWT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-keys
+                  key: jwt_private.pem
+
+            # === Mongo: letti da ConfigMap ===
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: user-manager-config        # Deve contenere MONGO_URI
+                  key: MONGO_URI_USER
+            - name: MONGO_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: user-manager-config        # Deve contenere MONGO_DB_NAME
+                  key: MONGO_DB_NAME_USER
+
+          readinessProbe:
+            httpGet:
+              path: /api/v1/user/health
+              port: 5050
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/v1/user/health
+              port: 5050
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

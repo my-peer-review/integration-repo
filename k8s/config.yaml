@@ -17,3 +17,14 @@ metadata:
 data:
   MONGO_DB_NAME_SUBMISSIONS: "submission"
   MONGO_URI_SUBMISSIONS: "mongodb://mongodb.submission.svc.cluster.local:27017/submission"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-manager-config
+  namespace: user-manager
+data:
+  MONGO_DB_NAME_USER: "user-manager"
+  MONGO_URI_USER: "mongodb://mongodb.user-manager.svc.cluster.local:27017/user-manager"

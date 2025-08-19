@@ -1,3 +1,24 @@
+# ───────────────────────── submissions (ns: submission) ────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-manager-ingress
+  namespace: user-manager
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+         - path: /api/v1/user
+           pathType: Prefix
+           backend:
+             service:
+               name: user-manager-service
+               port:
+                 number: 5050
+---
 # ───────────────────────── assignments (ns: assignment) ─────────────────────────
 apiVersion: networking.k8s.io/v1
 kind: Ingress
