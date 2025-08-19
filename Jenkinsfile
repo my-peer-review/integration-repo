@@ -83,7 +83,11 @@ pipeline {
             -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
         '''
-      }
+        sh '''
+          microk8s kubectl -n user-manager exec mongodb-0 -- \
+            mongosh "mongodb://localhost:27017/user_manager" --quiet \
+            --eval 'db.users.deleteMany({})'
+        '''
     }
 
     stage('Run API Tests with Newman Assignments') {

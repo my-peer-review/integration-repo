@@ -19,7 +19,7 @@ spec:
           image: docker.io/ale175/service-user-manager:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 6060
+            - containerPort: 5050
           env:
             # === JWT: letti direttamente dal Secret ===
             - name: JWT_ALGORITHM
