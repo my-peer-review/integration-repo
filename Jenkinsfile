@@ -88,6 +88,7 @@ pipeline {
             mongosh "mongodb://localhost:27017/user_manager" --quiet \
             --eval 'db.users.deleteMany({})'
         '''
+      }
     }
 
     stage('Run API Tests with Newman Assignments') {
