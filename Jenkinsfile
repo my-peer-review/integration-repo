@@ -64,11 +64,10 @@ pipeline {
         sh '''
         set -e
         NS="${SVC}"
+        SRV_DIR="${K8S_DIR}/services/${SVC}"
 
-        ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC} || true
-        ${MK8S} kubectl apply -f "${K8S_DIR}/databases/${SVC} || true
+        ${MK8S} kubectl apply -R -f "$SRV_DIR"
 
-        # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
         ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
         '''
         }
