@@ -93,7 +93,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/v1/review
+          - path: /api/v1/reviews
             pathType: Prefix
             backend:
               service:
