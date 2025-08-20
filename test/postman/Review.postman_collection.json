@@ -65,7 +65,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": {{teacher_id}},\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -229,9 +229,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews/process",
+					"raw": "{{review_url}}/api/v1/reviews/process",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -342,9 +342,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews/assignment/{{assignment_id}}",
+					"raw": "{{review_url}}/api/v1/reviews/assignment/{{assignment_id}}",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -437,9 +437,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews/assignment/{{assignment_id}}",
+					"raw": "{{review_url}}/api/v1/reviews/assignment/{{assignment_id}}",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -567,9 +567,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews?stato=pending",
+					"raw": "{{review_url}}/api/v1/reviews?stato=pending",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -676,9 +676,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews?stato=complete",
+					"raw": "{{review_url}}/api/v1/reviews?stato=complete",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -794,9 +794,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews/{{review_id}}",
+					"raw": "{{review_url}}/api/v1/reviews/{{review_id}}",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -896,9 +896,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews/{{review_id}}",
+					"raw": "{{review_url}}/api/v1/reviews/{{review_id}}",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
@@ -1019,9 +1019,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url_local}}/api/v1/reviews?stato=complete",
+					"raw": "{{review_url}}/api/v1/reviews?stato=complete",
 					"host": [
-						"{{review_url_local}}"
+						"{{review_url}}"
 					],
 					"path": [
 						"api",
