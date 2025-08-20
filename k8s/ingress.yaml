@@ -97,6 +97,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: assignments-service
+                name: review-service
                 port:
                   number: 7070
