@@ -66,7 +66,17 @@ pipeline {
         NS="${SVC}"
         SRV_DIR="${K8S_DIR}/services/${SVC}"
 
-        ${MK8S} kubectl apply -R -f "$SRV_DIR"
+        if [ -d "$SRV_DIR" ]; then
+          ${MK8S} kubectl apply -R -f "$SRV_DIR"
+        else
+          echo "⚠️  Nessuna directory: $SRV_DIR"
+        fi
+
+        if ${MK8S} kubectl -n "$NS" get deploy -l app="${SVC}" -o name | grep -q .; then
+          ${MK8S} kubectl -n "$NS" rollout restart deploy -l app="${SVC}"
+        else
+          echo "ℹ️  Nessun Deployment con label app=${SVC} nel namespace ${NS}"
+        fi
 
         ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
         '''

@@ -34,12 +34,12 @@ spec:
             - name: MONGO_URI
               valueFrom:
                 configMapKeyRef:
-                  name: user-manager-config        
+                  name: review-config        
                   key: MONGO_URI_REVIEW
             - name: MONGO_DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: user-manager-config        
+                  name: review-config        
                   key: MONGO_DB_NAME_REVIEW
 
           readinessProbe:
