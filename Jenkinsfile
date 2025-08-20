@@ -3,7 +3,7 @@ pipeline {
 
   parameters {
     // Se chiamato da un microservizio, passa SERVICE_NAME e TRIGGER_TYPE=single
-    string(name: 'SERVICE_NAME', defaultValue: 'assignment', description: 'Nome del microservizio (solo per trigger single)')
+    string(name: 'SERVICE_NAME', defaultValue: 'none', description: 'Nome del microservizio (solo per trigger single)')
     choice(name: 'TRIGGER_TYPE', choices: ['push', 'single'], description: 'push=deploy completo; single=rollout del servizio')
   }
 
@@ -64,20 +64,13 @@ pipeline {
         sh '''
         set -e
         NS="${SVC}"
-        SRV_DIR="${K8S_DIR}/services/${SVC}"
+        DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
 
-        if [ -d "$SRV_DIR" ]; then
-          ${MK8S} kubectl apply -R -f "$SRV_DIR"
-        else
-          echo "⚠️  Nessuna directory: $SRV_DIR"
+        if [ -f "${DEP}" ]; then
+            ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
         fi
 
-        if ${MK8S} kubectl -n "$NS" get deploy -l app="${SVC}" -o name | grep -q .; then
-          ${MK8S} kubectl -n "$NS" rollout restart deploy -l app="${SVC}"
-        else
-          echo "ℹ️  Nessun Deployment con label app=${SVC} nel namespace ${NS}"
-        fi
-
+        # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
         ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
         '''
         }
