@@ -4,7 +4,9 @@ metadata:
   name: assignment
   namespace: assignment
 spec:
-  replicas: 2
+  strategy:
+    type: Recreate
+  replicas: 1
   selector:
     matchLabels:
       app: assignment
