@@ -72,6 +72,7 @@ pipeline {
 
         # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
         ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
+
         '''
         }
     }

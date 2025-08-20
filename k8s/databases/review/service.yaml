@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: reviewdb
+  name: mongodb
   namespace: review
 spec:
   clusterIP: None
-  selector: { app: reviewdb }
+  selector: { app: mongodb }
   ports:
-    - name: reviewdb
+    - name: mongodb
       port: 27017
