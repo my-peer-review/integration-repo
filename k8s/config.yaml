@@ -37,5 +37,5 @@ metadata:
   name: review-config
   namespace: review
 data:
-  MONGO_DB_NAME_REVIEW: "user-manager"
+  MONGO_DB_NAME_REVIEW: "review"
   MONGO_URI_REVIEW: "mongodb://mongodb.review.svc.cluster.local:27017/review"
