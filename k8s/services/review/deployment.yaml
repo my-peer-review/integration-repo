@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-deployment
+  namespace: review
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review
+  template:
+    metadata:
+      labels:
+        app: review
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: app
+          image: docker.io/ale175/service-review:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7070
+          env:
+            # === JWT: letti direttamente dal Secret ===
+            - name: JWT_ALGORITHM
+              value: RS256                       
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-key                 
+                  key: jwt_public.pem
+
+            # === Mongo: letti da ConfigMap ===
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: user-manager-config        
+                  key: MONGO_URI_REVIEW
+            - name: MONGO_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: user-manager-config        
+                  key: MONGO_DB_NAME_REVIEW
+
+          readinessProbe:
+            httpGet:
+              path: /api/v1/review/health
+              port: 7070
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/v1/review/health
+              port: 7070
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

@@ -28,3 +28,14 @@ metadata:
 data:
   MONGO_DB_NAME_USER: "user-manager"
   MONGO_URI_USER: "mongodb://mongodb.user-manager.svc.cluster.local:27017/user-manager"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: review-config
+  namespace: review
+data:
+  MONGO_DB_NAME_REVIEW: "user-manager"
+  MONGO_URI_REVIEW: "mongodb://mongodb.review.svc.cluster.local:27017/review"

@@ -64,11 +64,9 @@ pipeline {
         sh '''
         set -e
         NS="${SVC}"
-        DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
 
-        if [ -f "${DEP}" ]; then
-            ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
-        fi
+        ${MK8S} kubectl apply -f "${K8S_DIR}/services/${SVC} || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/databases/${SVC} || true
 
         # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
         ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}"
@@ -105,6 +103,16 @@ pipeline {
       steps {
         sh '''
           newman run ./test/postman/Submissions.postman_collection.json \
+            -e ./test/postman/postman-env.postman_environment.json \
+            --reporters cli,json
+        '''
+      }
+    }
+
+    stage('Run API Tests with Newman review') {
+      steps {
+        sh '''
+          newman run ./test/postman/Review.postman_collection.json \
             -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
         '''
