@@ -109,7 +109,7 @@
 							"  pm.expect(pm.response.headers.has(\"Location\")).to.be.true;\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Location punta a /assignments/<uuid>\", function () {\r",
+							"pm.test(\"Location punta a /assignments/id\", function () {\r",
 							"  const loc = pm.response.headers.get(\"Location\");\r",
 							"  pm.expect(loc).to.match(/\\/api\\/v1\\/assignments\\/as-\\d{5}$/);\r",
 							"});\r",

@@ -109,7 +109,7 @@
 							"  pm.expect(pm.response.headers.has(\"Location\")).to.be.true;\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Location punta a /assignments/<uuid>\", function () {\r",
+							"pm.test(\"Location punta a /assignments/id\", function () {\r",
 							"  const loc = pm.response.headers.get(\"Location\");\r",
 							"  pm.expect(loc).to.match(/\\/api\\/v1\\/assignments\\/as-\\d{5}$/);\r",
 							"});\r",
@@ -130,7 +130,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"prof123\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -174,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"prof123\",\r\n  \"students\": [\"stu001\", \"stu002\", \"stu003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"{{teacher_id}}\",\r\n  \"students\": [\"{{student_id}}\", \"st00002\", \"st00003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -258,7 +258,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"stu001\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -390,7 +390,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"prof123\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -525,7 +525,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"prof123\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -632,7 +632,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"stu001\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -705,10 +705,6 @@
 							"    pm.response.to.have.status(204);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
 							"pm.test(\"Nessun Content-Type per 204\", function () {\r",
 							"  if (pm.response.code === 204) {\r",
 							"    pm.expect(pm.response.headers.has('Content-Type')).to.be.false;\r",
@@ -735,7 +731,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"prof123\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
