@@ -18,7 +18,7 @@ spec:
         app: review
     spec:
       imagePullSecrets:
-        - dockerhub-cred
+        - name: dockerhub-cred
       automountServiceAccountToken: false
       containers:
         - name: app

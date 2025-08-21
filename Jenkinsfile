@@ -44,18 +44,18 @@ pipeline {
         microk8s kubectl delete ingress user-manager-ingress -n user-manager --ignore-not-found
 
         # 1) Namespace
-        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" 
 
         # 2) Databases
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases" || true
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases" 
 
         # 3) Services
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services" || true
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services" 
 
         # 4) Config, Secrets, Ingress
-        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
-        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
-        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"  
+        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml" 
+        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml" 
 
         # 5) Rollout deployments
         ${MK8S} kubectl rollout restart deploy -n user-manager -l app=user-manager
