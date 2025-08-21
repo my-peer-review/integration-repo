@@ -39,6 +39,8 @@ pipeline {
 
         microk8s kubectl delete ingress assignments-ingress -n assignment --ignore-not-found
         microk8s kubectl delete ingress submissions-ingress -n submission --ignore-not-found
+        microk8s kubectl delete ingress review-ingress -n review --ignore-not-found
+        microk8s kubectl delete ingress user-manager-ingress -n user-manager --ignore-not-found
 
         # 1) Namespace
         ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" || true
@@ -53,6 +55,13 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
+
+        # 5) Deployments
+        NS_LIST="assignment review user-manager submission"
+        for ns in $NS_LIST; do
+          echo "==> $ns"
+          microk8s kubectl -n "$ns" rollout restart deploy --all
+        done
         """
         }
     }

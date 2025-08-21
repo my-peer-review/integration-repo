@@ -26,8 +26,8 @@ metadata:
   name: user-manager-config
   namespace: user-manager
 data:
-  MONGO_DB_NAME_USER: "user"
-  MONGO_URI_USER: "mongodb://mongodb.user-manager.svc.cluster.local:27017/user"
+  MONGO_DB_NAME_USER: "users"
+  MONGO_URI_USER: "mongodb://mongodb.user-manager.svc.cluster.local:27017/users"
 
 ---
 
