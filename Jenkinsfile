@@ -29,42 +29,62 @@ pipeline {
       }
     }
 
-    stage('Deploy FULL (trigger=push)') {
+  stage('Deploy FULL (trigger=push)') {
     when { expression { env.MODE == 'push' } }
     steps {
-        echo "🚀 Deploy completo dell'ambiente di test"
+      echo "🚀 Deploy completo dell'ambiente di test"
 
-        sh """
-        set -e
+      sh """
+        set -euo pipefail
+        IFS=$'\\n\\t'
 
-        microk8s kubectl delete ingress assignments-ingress -n assignment --ignore-not-found
-        microk8s kubectl delete ingress submissions-ingress -n submission --ignore-not-found
-        microk8s kubectl delete ingress review-ingress -n review --ignore-not-found
-        microk8s kubectl delete ingress user-manager-ingress -n user-manager --ignore-not-found
+        NS_LIST="assignment review user-manager submission"
 
-        # 1) Namespace
-        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" || true
+        # 0) Pulizia ingress (idempotente)
+        for ns in $NS_LIST; do
+          ${MK8S} kubectl -n "$ns" delete ingress --all --ignore-not-found
+        done
 
-        # 2) Databases
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases" || true
+        # 1) Namespace (deve venire prima di tutto)
+        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml"
 
-        # 3) Services
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services" || true
+        # 2) Databases (StatefulSet + Service)
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases"
+
+        # 3) Services applicativi
+        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services"
 
         # 4) Config, Secrets, Ingress
-        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
-        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
-        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
+        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"
+        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"
+        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"
 
-        # 5) Deployments
-        NS_LIST="assignment review user-manager submission"
+        # 4.1) Attendi che i DB (StatefulSet) siano Ready prima di rilanciare le app
         for ns in $NS_LIST; do
-          echo "==> $ns"
-          microk8s kubectl -n "$ns" rollout restart deploy --all
+          ${MK8S} kubectl -n "$ns" rollout status statefulset --all --timeout=10m || true
         done
-        """
-        }
+
+        # 5) Rollout restart di TUTTI i controller
+        for ns in $NS_LIST; do
+          echo "==> Restart in namespace $ns"
+          ${MK8S} kubectl -n "$ns" rollout restart deploy --all || true
+          ${MK8S} kubectl -n "$ns" rollout restart statefulset --all || true
+          ${MK8S} kubectl -n "$ns" rollout restart daemonset --all || true
+        done
+
+        # 6) Attendi stabilizzazione (fallisci lo stage se i Deploy non tornano su)
+        for ns in $NS_LIST; do
+          ${MK8S} kubectl -n "$ns" rollout status deploy --all --timeout=5m || {
+            echo "✖️ Rollout fallito in $ns, stato corrente:"
+            ${MK8S} kubectl -n "$ns" get pods -o wide
+            exit 1
+          }
+          ${MK8S} kubectl -n "$ns" rollout status daemonset --all --timeout=5m || true
+          ${MK8S} kubectl -n "$ns" rollout status statefulset --all --timeout=10m || true
+        done
+      """
     }
+  }
 
     stage('Rollout SINGLE (trigger=single)') {
     when { expression { env.MODE == 'single' } }
