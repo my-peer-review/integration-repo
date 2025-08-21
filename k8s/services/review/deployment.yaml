@@ -17,7 +17,7 @@ spec:
       labels:
         app: review
     spec:
-      imagaePullsecrets:
+      imagePullSecrets:
         - dockerhub-cred
       automountServiceAccountToken: false
       containers:
