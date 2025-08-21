@@ -56,7 +56,14 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
+
+        # 5) Rollout deployments
+        ${MK8S} kubectl -n assignment rollout restart deploy --all || true
+        ${MK8S} kubectl -n submission rollout restart deploy --all || true
+        ${MK8S} kubectl -n review rollout restart deploy --all || true
+        ${MK8S} kubectl -n user-manager rollout restart deploy --all || true
         """
+        
         }
     }
 
