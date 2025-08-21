@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: assignment
   namespace: assignment
+  labels:
+    app: assignment
 spec:
   strategy:
     type: Recreate

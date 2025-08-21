@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: user-manager
   namespace: user-manager
+  labels:
+    app: user-manager
 spec:
   replicas: 1
   strategy:
