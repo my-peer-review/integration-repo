@@ -4,6 +4,10 @@ kind: StatefulSet
 metadata:
   name: mongodb
   namespace: assignment
+  labels:
+    app: mongodb
+    component: database
+    tier: backend
 spec:
   serviceName: mongodb
   replicas: 1
