@@ -57,7 +57,7 @@ spec:
     - http:
         paths:
           # Rotta SPECIFICA: /api/v1/assignments/<id>/submissions  -> submissions-service
-          - path: /api/v1/assignments/[0-9a-fA-F-]+/submissions(/|$)
+          - path: /api/v1/assignments/as-\d{5}/submissions(/|$)
             pathType: ImplementationSpecific
             backend:
               service:
