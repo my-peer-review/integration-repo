@@ -92,7 +92,7 @@ pipeline {
 
         # Attendi il completamento del rollout
         ${MK8S} kubectl rollout status deployment/"${NS}" -n "${NS}" --timeout=60s || {
-            echo "❌ Rollout fallito per ${SVC} in ${NS}"
+            echo "Rollout fallito"
             exit 1
         }
 
