@@ -88,10 +88,10 @@ pipeline {
         fi
 
         # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
-        ${MK8S} kubectl rollout restart deployment "${SVC}" -n "${NS}" -l "${NS}"
+        ${MK8S} kubectl rollout restart deployment -n "${NS}" -l app="${NS}"
 
         # Attendi il completamento del rollout
-        ${MK8S} kubectl rollout status deployment "${SVC}" -n "${NS}" -l "${NS}" --timeout=60s || {
+        ${MK8S} kubectl rollout status deployment/"${NS}" -n "${NS}" --timeout=60s || {
             echo "❌ Rollout fallito per ${SVC} in ${NS}"
             exit 1
         }
