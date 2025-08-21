@@ -58,10 +58,11 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
 
         # 5) Rollout deployments
-        ${MK8S} kubectl -n assignment rollout restart deploy --all || true
-        ${MK8S} kubectl -n submission rollout restart deploy --all || true
-        ${MK8S} kubectl -n review rollout restart deploy --all || true
-        ${MK8S} kubectl -n user-manager rollout restart deploy --all || true
+        ${MK8S} kubectl rollout restart deploy -n user-manager -l app=user-manager
+        ${MK8S} kubectl rollout restart deploy -n assignment -l app=assignment
+        ${MK8S} kubectl rollout restart deploy -n submission -l app=submission
+        ${MK8S} kubectl rollout restart deploy -n review -l app=review
+
         """
         
         }
