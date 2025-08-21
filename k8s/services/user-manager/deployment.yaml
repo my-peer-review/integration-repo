@@ -17,6 +17,8 @@ spec:
       labels:
         app: user-manager
     spec:
+      imagePullSecrets:
+        - name: dockerhub-cred
       automountServiceAccountToken: false
       containers:
         - name: app

@@ -17,6 +17,8 @@ spec:
       labels:
         app: submission
     spec:
+      imagePullSecrets:
+        - name: dockerhub-cred
       automountServiceAccountToken: false
       containers:
         - name: app
