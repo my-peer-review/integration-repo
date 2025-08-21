@@ -57,9 +57,6 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml" 
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml" 
 
-        # 5) RabbitMQ
-        helm install rabbitmq bitnami/rabbitmq -n rabbitmq -f rabbitmq-values.yaml
-
         # 5) Rollout deployments
         ${MK8S} kubectl rollout restart deploy -n user-manager -l app=user-manager
         ${MK8S} kubectl rollout restart deploy -n assignment -l app=assignment
