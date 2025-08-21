@@ -1,0 +1,32 @@
+replicaCount: 1
+
+auth:
+  existingPasswordSecret: rabbitmq-auth
+  username: admin
+  password: ""           
+  erlangCookie: ""          
+
+persistence:
+  enabled: true
+  size: 2Gi
+
+service:
+  type: ClusterIP 
+
+plugins: "rabbitmq_management rabbitmq_prometheus"
+
+extraConfiguration: |-
+  management.path_prefix = /rabbitmq
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: ""             
+  path: /rabbitmq
+  pathType: Prefix
+  tls: false
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+
+metrics:
+  enabled: false  
