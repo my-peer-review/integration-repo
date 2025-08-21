@@ -64,10 +64,10 @@ pipeline {
         ${MK8S} kubectl rollout restart deploy -n review -l app=review
 
         # 6) Atessa restart
-        ${MK8S} kubectl rollout status deployment/user-manager -n user-manager --timeout=60s
-        ${MK8S} kubectl rollout status deployment/submission -n submission --timeout=60s
-        ${MK8S} kubectl rollout status deployment/assignment -n assignment --timeout=60s
-        ${MK8S} kubectl rollout status deployment/review -n review --timeout=60s
+        ${MK8S} kubectl rollout status deployment/user-manager -n user-manager --timeout=80s
+        ${MK8S} kubectl rollout status deployment/submission -n submission --timeout=80s
+        ${MK8S} kubectl rollout status deployment/assignment -n assignment --timeout=80s
+        ${MK8S} kubectl rollout status deployment/review -n review --timeout=80s
 
         """
         
@@ -91,7 +91,7 @@ pipeline {
         ${MK8S} kubectl rollout restart deployment -n "${NS}" -l app="${NS}"
 
         # Attendi il completamento del rollout
-        ${MK8S} kubectl rollout status deployment/"${NS}" -n "${NS}" --timeout=60s || {
+        ${MK8S} kubectl rollout status deployment/"${NS}" -n "${NS}" --timeout=80s || {
             echo "Rollout fallito"
             exit 1
         }
