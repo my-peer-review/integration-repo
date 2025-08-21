@@ -174,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"{{teacher_id}}\",\r\n  \"students\": [\"{{student_id}}\", \"st00002\", \"st00003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"{{teacher_id}}\",\r\n  \"students\": [\"{{student_id}}\", \"{{student2_id}}\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -317,6 +317,136 @@
 							"key": "assignmentId",
 							"value": "{{assignment_id}}",
 							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{submissions_url}}/api/v1/submissions",
+					"host": [
+						"{{submissions_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"submissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create submission with out file",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"201 Created\", () => pm.response.to.have.status(201));\r",
+							"\r",
+							"// messaggio + id presenti\r",
+							"pm.test(\"payload base ok\", () => {\r",
+							"  pm.expect(json.message).to.match(/created/i);\r",
+							"  pm.expect(json.submissionId).to.be.a(\"string\").and.not.empty;\r",
+							"  pm.expect(json.assignmentId).to.be.a(\"string\").and.not.empty;\r",
+							"});\r",
+							"\r",
+							"// assignment coerente\r",
+							"pm.test(\"assignment id coerente con URL\", () => {\r",
+							"  pm.expect(json.assignmentId).to.eql(pm.variables.get(\"assignment_id\"));\r",
+							"});\r",
+							"\r",
+							"// aggiorna L’AMBIENTE, non la collection\r",
+							"pm.environment.set(\"submission_id\", json.submissionId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "{\r\n  \"sub\": \"{{student2_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "RS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "La mia soluzione prevede un diagramma con le seguenti classi: Cliente, Prodotto, Ordine, Pagamento, Spedizione...",
+							"type": "text"
+						},
+						{
+							"key": "assignmentId",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
 						}
 					]
 				},
