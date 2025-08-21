@@ -8,6 +8,54 @@
 	"item": [
 		{
 			"name": "Register teacher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains the message field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('message');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains user_id field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('user_id');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"User ID must be a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.user_id).to.exist;\r",
+							"    pm.expect(responseData.user_id).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Message is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -37,6 +85,75 @@
 		},
 		{
 			"name": "login teacher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let data;\r",
+							"\r",
+							"// 1) Base: status + JSON\r",
+							"pm.test(\"200 OK\", () => pm.response.to.have.status(200));\r",
+							"pm.test(\"Risposta JSON\", () => {\r",
+							"  pm.expect(() => { data = pm.response.json(); }).to.not.throw();\r",
+							"});\r",
+							"\r",
+							"// 2) Campi attesi\r",
+							"pm.test(\"Campi presenti\", () => {\r",
+							"  pm.expect(data).to.be.an(\"object\");\r",
+							"  [\"access_token\",\"token_type\",\"expires_at\",\"issued_at\"].forEach(k => pm.expect(data).to.have.property(k));\r",
+							"  pm.expect(String(data.token_type).toLowerCase()).to.eql(\"bearer\");\r",
+							"});\r",
+							"\r",
+							"// 3) access_token ha forma JWT (header.payload.signature)\r",
+							"pm.test(\"Token ha formato JWT\", () => {\r",
+							"  pm.expect(data.access_token).to.be.a(\"string\").and.to.have.length.above(10);\r",
+							"  const jwtRe = /^[A-Za-z0-9\\-_]+\\.[A-Za-z0-9\\-_]+\\.[A-Za-z0-9\\-_]+$/;\r",
+							"  pm.expect(data.access_token).to.match(jwtRe);\r",
+							"});\r",
+							"\r",
+							"// 4) Decodifica e controlli su header/payload (senza verificare la firma)\r",
+							"function b64urlDecode(s){\r",
+							"  s = s.replace(/-/g,'+').replace(/_/g,'/');\r",
+							"  const pad = s.length % 4; if (pad) s += '='.repeat(4 - pad);\r",
+							"  return atob(s);\r",
+							"}\r",
+							"\r",
+							"let header, payload;\r",
+							"pm.test(\"Header/Payload decodificabili\", () => {\r",
+							"  const parts = data.access_token.split(\".\");\r",
+							"  pm.expect(parts.length).to.eql(3);\r",
+							"  header = JSON.parse(b64urlDecode(parts[0]));\r",
+							"  payload = JSON.parse(b64urlDecode(parts[1]));\r",
+							"  pm.expect(header).to.be.an(\"object\");\r",
+							"  pm.expect(payload).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"// 5) Header sensato (alg/typ)\r",
+							"pm.test(\"Header JWT corretto\", () => {\r",
+							"  pm.expect(header).to.have.property(\"typ\").that.matches(/JWT/i);\r",
+							"});\r",
+							"\r",
+							"// 6) Claim minimi nel payload\r",
+							"pm.test(\"Claim nel payload\", () => {\r",
+							"  [\"sub\",\"role\",\"iat\",\"exp\"].forEach(k => pm.expect(payload).to.have.property(k));\r",
+							"});\r",
+							"\r",
+							"// 8) (Opzionale) Coerenza con dati attesi\r",
+							"pm.test(\"sub/role attesi (se definiti in env)\", () => {\r",
+							"  const expectedRole = pm.environment.get(\"role\");\r",
+							"  const expectedUserId = pm.environment.get(\"user_id\");\r",
+							"  if (expectedRole) pm.expect(payload.role).to.eql(expectedRole);\r",
+							"  if (expectedUserId) pm.expect(String(payload.sub)).to.eql(String(expectedUserId));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -50,10 +167,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{user-url}}/api/v1/user/login",
+					"raw": "http://127.0.0.1:5050/api/v1/user/login",
+					"protocol": "http",
 					"host": [
-						"{{user-url}}"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",

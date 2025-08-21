@@ -525,7 +525,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"DELETE not implemented\", () => {\r",
+							"pm.test(\"DELETE not allowed for students\", () => {\r",
 							"  pm.expect(pm.response.code).to.eql(403);\r",
 							"});"
 						],
@@ -614,8 +614,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"DELETE not implemented\", () => {\r",
-							"  pm.expect(pm.response.code).to.eql(204);\r",
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
 							"});"
 						],
 						"type": "text/javascript",
