@@ -56,12 +56,6 @@ pipeline {
         ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"   || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"  || true
         ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"  || true
-
-        # 5) Deployments
-        for ns in ${NS_LIST}; do
-          echo "==> Restart $ns"
-          microk8s kubectl -n "$ns" rollout restart deploy --all
-        done
         """
         }
     }
