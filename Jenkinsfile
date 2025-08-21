@@ -101,6 +101,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman user-manager') {
+      when { expression { env.SVC == 'user-manager' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Autenticazione.postman_collection.json \

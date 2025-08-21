@@ -372,9 +372,6 @@
 							"pm.test(\"assignment id coerente con URL\", () => {\r",
 							"  pm.expect(json.assignmentId).to.eql(pm.variables.get(\"assignment_id\"));\r",
 							"});\r",
-							"\r",
-							"// aggiorna L’AMBIENTE, non la collection\r",
-							"pm.environment.set(\"submission_id\", json.submissionId);\r",
 							""
 						],
 						"type": "text/javascript",
@@ -440,13 +437,8 @@
 						},
 						{
 							"key": "assignmentId",
-							"value": "5",
+							"value": "{{assignment_id}}",
 							"type": "text"
-						},
-						{
-							"key": "files",
-							"type": "file",
-							"src": []
 						}
 					]
 				},
