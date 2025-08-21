@@ -1,10 +1,9 @@
 replicaCount: 1
 
 auth:
-  existingPasswordSecret: rabbitmq-auth
   username: admin
-  password: ADMIN12345           
-  erlangCookie: ryG8Vf2dUZhYmG4MkqUK16tpJGc/PHBSaKDVyJJ/CB0=         
+  existingPasswordSecret: rabbitmq-auth
+  existingErlangSecret: rabbitmq-auth
 
 persistence:
   enabled: true
@@ -13,7 +12,7 @@ persistence:
 service:
   type: ClusterIP 
 
-plugins: "rabbitmq_management rabbitmq_prometheus"
+plugins: "rabbitmq_management rabbitmq_pzrometheus"
 
 extraConfiguration: |-
   management.path_prefix = /rabbitmq
