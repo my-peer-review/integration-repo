@@ -63,6 +63,10 @@ pipeline {
         ${MK8S} kubectl rollout restart deploy -n submission -l app=submission
         ${MK8S} kubectl rollout restart deploy -n review -l app=review
 
+        # 6) Atessa restart
+        ${MK8S} kubectl rollout status deployment/user-manager -n user-manager
+        ${MK8S} kubectl rollout status deployment/submission -n submission
+
         """
         
         }
