@@ -150,15 +150,19 @@ pipeline {
 
         microk8s kubectl -n assignment exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/assignment" --quiet \
-          --eval 'const r = db.assignment.deleteMany({}); print("deleted from assignment.assignment:", r.deletedCount)'
+          --eval 'const r = db.assignments.deleteMany({}); print("deleted from assignment.assignments:", r.deletedCount)'
 
         microk8s kubectl -n submission exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/submission" --quiet \
-          --eval 'const r = db.submission.deleteMany({}); print("deleted from submission.submission:", r.deletedCount)'
+          --eval '
+            db.getCollectionNames().forEach(c => {
+              const r = db.getCollection(c).deleteMany({});
+              print("Svuotata collection:", c, "deleted:", r.deletedCount);
+            })'
 
         microk8s kubectl -n review exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/review" --quiet \
-          --eval 'const r = db.review.deleteMany({}); print("deleted from review.review:", r.deletedCount)'
+          --eval 'const r = db.reviews.deleteMany({}); print("deleted from review.reviews:", r.deletedCount)'
         '''
     }
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
