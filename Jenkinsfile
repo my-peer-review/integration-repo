@@ -121,7 +121,6 @@ pipeline {
   post {
     always { 
       sh '''
-        set -euo pipefail
         microk8s kubectl -n user-manager exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/user" --quiet \
           --eval 'const r=db.users.deleteMany({}); print("deleted (post):", r.deletedCount);'

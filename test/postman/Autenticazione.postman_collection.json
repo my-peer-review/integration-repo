@@ -167,15 +167,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5050/api/v1/user/login",
-					"protocol": "http",
+					"raw": "{{user-url}}/api/v1/user/login",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{user-url}}"
 					],
-					"port": "5050",
 					"path": [
 						"api",
 						"v1",
