@@ -46,7 +46,7 @@
 							"\r",
 							"pm.test(\"Location punta a /assignments/<uuid>\", function () {\r",
 							"  const loc = pm.response.headers.get(\"Location\");\r",
-							"  pm.expect(loc).to.match(/\\/api\\/v1\\/assignments\\/[0-9a-f-]{36}$/i);\r",
+							"  pm.expect(loc).to.match(/\\/api\\/v1\\/assignments\\/as-\\d{5}$/);\r",
 							"});\r",
 							"\r",
 							"const location_assignament = pm.response.headers.get(\"Location\");\r",
