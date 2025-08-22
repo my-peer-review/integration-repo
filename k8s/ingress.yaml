@@ -107,6 +107,8 @@ kind: Ingress
 metadata:
   name: rabbitmq-ui
   namespace: rabbitmq
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
