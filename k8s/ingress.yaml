@@ -100,3 +100,22 @@ spec:
                 name: review-service
                 port:
                   number: 7070
+---
+# ───────────────────────── RabbitMQ (ns: rabbitmq) ─────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rabbitmq-ui
+  namespace: rabbitmq
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /rabbitmq
+            pathType: Prefix
+            backend:
+              service:
+                name: rabbitmq
+                port:
+                  number: 15672

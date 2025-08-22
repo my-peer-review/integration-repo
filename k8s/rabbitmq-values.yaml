@@ -18,7 +18,7 @@ extraConfiguration: |-
   management.path_prefix = /rabbitmq
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: nginx
   hostname: ""             
   path: /rabbitmq
