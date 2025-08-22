@@ -33,7 +33,7 @@ spec:
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-key                 
+                  name: review-secrets                 
                   key: jwt_public.pem
 
             # === Mongo: letti da ConfigMap ===
@@ -53,7 +53,7 @@ spec:
             - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq-auth
+                  name: review-secrets
                   key: password
 
           readinessProbe:

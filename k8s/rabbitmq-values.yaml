@@ -2,8 +2,8 @@ replicaCount: 1
 
 auth:
   username: admin
-  existingPasswordSecret: rabbitmq-auth
-  existingErlangSecret: rabbitmq-auth
+  password: ADMIN12345
+  erlangCookie: ryG8Vf2dUZhYmG4MkqUK16tpJGc/PHBSaKDVyJJ/CB0=
 
 persistence:
   enabled: true
