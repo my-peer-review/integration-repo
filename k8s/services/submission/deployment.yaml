@@ -29,29 +29,38 @@ spec:
           env:
             # === JWT: letti direttamente dal Secret ===
             - name: JWT_ALGORITHM
-              value: RS256                       # o il tuo algoritmo
+              value: RS256                       
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-keys                 # Secret esistente nel ns submission
+                  name: jwt-keys                
                   key: jwt_public.pem
-            - name: JWT_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-keys
-                  key: jwt_private.pem
 
             # === Mongo: letti da ConfigMap ===
             - name: MONGO_URI
               valueFrom:
                 configMapKeyRef:
-                  name: submission-config        # Deve contenere MONGO_URI
+                  name: submission-config        
                   key: MONGO_URI_SUBMISSIONS
             - name: MONGO_DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: submission-config        # Deve contenere MONGO_DB_NAME
+                  name: submission-config        
                   key: MONGO_DB_NAME_SUBMISSIONS
+
+            # === RabbitMQ: da secrets ===
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: rabbitmq-password
+            - name: RABBITMQ_USERNAME
+              valueFrom:  
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: rabbitmq-username
+            - name: RABBITMQ_URL
+              value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672"
 
           readinessProbe:
             httpGet:

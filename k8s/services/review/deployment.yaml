@@ -47,14 +47,19 @@ spec:
                 configMapKeyRef:
                   name: review-config        
                   key: MONGO_DB_NAME_REVIEW
-            # === RabbitMQ: letti da ConfigMap ===
-            - name: RABBITMQ_URL
-              value: "amqp://admin:$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672"
+            # === RabbitMQ: da secrets ===
             - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: review-secrets
-                  key: password
+                  name: rabbitmq-credentials
+                  key: rabbitmq-password
+            - name: RABBITMQ_USERNAME
+              valueFrom:  
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: rabbitmq-username
+            - name: RABBITMQ_URL
+              value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672"
 
           readinessProbe:
             httpGet:

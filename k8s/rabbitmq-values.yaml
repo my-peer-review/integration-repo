@@ -2,7 +2,7 @@ replicaCount: 1
 
 auth:
   username: admin
-  password: ADMIN12345
+  password: pass12345
   erlangCookie: ryG8Vf2dUZhYmG4MkqUK16tpJGc/PHBSaKDVyJJ/CB0=
 
 persistence:
