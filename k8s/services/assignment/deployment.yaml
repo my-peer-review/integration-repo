@@ -52,6 +52,19 @@ spec:
                 configMapKeyRef:
                   name: assignment-config        # Deve contenere MONGO_DB_NAME
                   key: MONGO_DB_NAME_ASSIGNMENTS
+            # === RabbitMQ: da secrets ===
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: rabbitmq-password
+            - name: RABBITMQ_USERNAME
+              valueFrom:  
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: rabbitmq-username
+            - name: RABBITMQ_URL
+              value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672/%2f"
 
           readinessProbe:
             httpGet:
