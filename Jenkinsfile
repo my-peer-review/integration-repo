@@ -167,6 +167,10 @@ pipeline {
         microk8s kubectl -n review exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/review" --quiet \
           --eval 'const r = db.reviews.deleteMany({}); print("deleted from review.reviews:", r.deletedCount)'
+
+        microk8s kubectl -n review exec mongodb-0 -- \
+          mongosh "mongodb://localhost:27017/review" --quiet \
+          --eval 'const r = db.getCollection("submission-consegnate").deleteMany({}); print("deleted from review.submission-consegnate:", r.deletedCount)'
         '''
     }
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
