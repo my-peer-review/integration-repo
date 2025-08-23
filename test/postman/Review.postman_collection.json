@@ -472,7 +472,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"assignmentId\": \"{{assignment_id}}\",\r\n  \"deadline\": \"2025-10-15T23:59:00\",\r\n  \"lista_assegnazioni\": [\r\n    { \"reviewer\": \"us-00001\", \"submissionId\": \"{{submission2_id}}\" },\r\n    { \"reviewer\": \"us-00002\", \"submissionId\": \"{{submission1_id}}\" }\r\n\r\n  ],\r\n  \"rubrica\": [\r\n    { \"criterio\": \"Chiarezza\" },\r\n    { \"criterio\": \"Correttezza\" },\r\n    { \"criterio\": \"Completezza\" }\r\n  ]\r\n}\r\n",
+					"raw": "{\r\n  \"assignmentId\": \"{{assignment_id}}\",\r\n  \"automatic_mode\": true,\r\n  \"deadline\": \"2025-10-15T23:59:00\",\r\n  \"lista_assegnazioni\": [\r\n    { \"reviewer\": \"us-00001\", \"submissionId\": \"{{submission2_id}}\" },\r\n    { \"reviewer\": \"us-00002\", \"submissionId\": \"{{submission1_id}}\" }\r\n\r\n  ],\r\n  \"rubrica\": [\r\n    { \"criterio\": \"Chiarezza\" },\r\n    { \"criterio\": \"Correttezza\" },\r\n    { \"criterio\": \"Completezza\" }\r\n  ]\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
