@@ -13,7 +13,7 @@ pipeline {
     // fallback robusti anche in multibranch
     SVC     = "${params.SERVICE_NAME ?: 'assignment'}"
     MODE    = "${params.TRIGGER_TYPE ?: 'push'}"
-    NS_LIST = "assignment review user-manager submission"
+    NS_LIST = "assignment review user-manager submission report"
   }
 
   stages {
