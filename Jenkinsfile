@@ -30,48 +30,49 @@ pipeline {
       }
     }
 
-    stage('Deploy FULL (trigger=push)') {
-    when { expression { env.MODE == 'push' } }
-    steps {
-        echo "🚀 Deploy completo dell'ambiente di test"
+    stage('Delete Deployments & Pods') {
+      steps {
+        sh '''
+          NS="user-manager assignment submission review"
 
-        sh """
-        set -e
+          for ns in $NS; do
+            echo "🧨 Cancello tutti i deployment in $ns"
+            ${MK8S} kubectl delete deploy --all -n "$ns" --ignore-not-found || true
+          done
+        '''
+      }
+    }
 
-        microk8s kubectl delete ingress assignments-ingress -n assignment --ignore-not-found
-        microk8s kubectl delete ingress submissions-ingress -n submission --ignore-not-found
-        microk8s kubectl delete ingress review-ingress -n review --ignore-not-found
-        microk8s kubectl delete ingress user-manager-ingress -n user-manager --ignore-not-found
+    stage('Recreate namespaces & base manifests') {
+      when { expression { env.MODE == 'push' } }
+      steps {
+        sh '''
+          set -Eeuo pipefail
+          echo "📦 Applying base manifests…"
+          ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml"
+          ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases"
+          ${MK8S} kubectl apply -R -f "${K8S_DIR}/services"
+          ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"
+          ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"
+          ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"
+        '''
+      }
+    }
 
-        # 1) Namespace
-        ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml" 
+    stage('Wait for Deployments') {
+      when { expression { env.MODE == 'push' } }
+      steps {
+        sh '''
+          NS="user-manager assignment submission review"
 
-        # 2) Databases
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases" 
-
-        # 3) Services
-        ${MK8S} kubectl apply -R -f "${K8S_DIR}/services" 
-
-        # 4) Config, Secrets, Ingress
-        ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"  
-        ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml" 
-        ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml" 
-
-        # 5) Rollout deployments
-        ${MK8S} kubectl rollout restart deploy -n user-manager -l app=user-manager
-        ${MK8S} kubectl rollout restart deploy -n assignment -l app=assignment
-        ${MK8S} kubectl rollout restart deploy -n submission -l app=submission
-        ${MK8S} kubectl rollout restart deploy -n review -l app=review
-
-        # 6) Atessa restart
-        ${MK8S} kubectl rollout status deployment/user-manager -n user-manager --timeout=80s
-        ${MK8S} kubectl rollout status deployment/submission -n submission --timeout=80s
-        ${MK8S} kubectl rollout status deployment/assignment -n assignment --timeout=80s
-        ${MK8S} kubectl rollout status deployment/review -n review --timeout=80s
-
-        """
-        
-        }
+          for ns in $NS; do
+            for d in $(${MK8S} kubectl get deploy -n "$ns" -o name); do
+              echo "⏳ Attendo rollout $d in $ns"
+              ${MK8S} kubectl rollout status -n "$ns" "$d" --timeout=80s
+            done
+          done
+        '''
+      }
     }
 
     stage('Rollout SINGLE (trigger=single)') {
@@ -87,11 +88,12 @@ pipeline {
             ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
         fi
 
-        # Forza il restart: con imagePullPolicy: Always scaricherà la nuova immagine
-        ${MK8S} kubectl rollout restart deployment -n "${NS}" -l app="${NS}"
+        microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=0
 
-        # Attendi il completamento del rollout
-        ${MK8S} kubectl rollout status deployment/"${NS}" -n "${NS}" --timeout=80s || {
+        microk8s kubectl wait --for=delete pod -n "${NS}" -l app="${NS}" --timeout=60s || true
+
+        microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=1
+        microk8s kubectl rollout status deploy -n "${NS}" -l app="${NS}" --timeout=80s || {
             echo "Rollout fallito"
             exit 1
         }
