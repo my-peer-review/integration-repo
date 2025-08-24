@@ -60,11 +60,12 @@ pipeline {
       when { expression { env.MODE == 'push' } }
       steps {
         sh '''
-          for ns in $NS_LISTS; do
-            for d in $(${MK8S} kubectl get deploy -n "$ns" -o name); do
-              echo "⏳ Attendo rollout $d in $ns"
-              ${MK8S} kubectl rollout status -n "$ns" "$d" --timeout=80s
-            done
+          set -e
+          for ns in $NS_LIST; do
+            # Attende rollout di *tutti* i deployment del namespace
+            "$MK8S" kubectl -n "$ns" rollout status deploy --all --timeout=180s
+            # Attende che risultino "Available" (dipende dalla readinessProbe)
+            "$MK8S" kubectl -n "$ns" wait deploy --all --for=condition=available --timeout=180s
           done
         '''
       }

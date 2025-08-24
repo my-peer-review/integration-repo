@@ -57,6 +57,12 @@ spec:
             - name: RABBITMQ_URL
               value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672/%2f"
 
+          startupProbe:
+            httpGet:
+              path: /api/v1/report/health
+              port: 9090
+            periodSeconds: 30
+            failureThreshold: 15
           readinessProbe:
             httpGet:
               path: /api/v1/report/health

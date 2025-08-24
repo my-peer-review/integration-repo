@@ -53,6 +53,12 @@ spec:
                   name: user-manager-config        # Deve contenere MONGO_DB_NAME
                   key: MONGO_DB_NAME_USER
 
+          startupProbe:
+            httpGet:
+              path: /api/v1/user/health
+              port: 5050
+            periodSeconds: 3
+            failureThreshold: 15
           readinessProbe:
             httpGet:
               path: /api/v1/user/health
