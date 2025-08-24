@@ -173,11 +173,13 @@ pipeline {
           mongosh "mongodb://localhost:27017/review" --quiet \
           --eval 'const r = db.getCollection("submission-consegnate").deleteMany({}); print("deleted from review.submission-consegnate:", r.deletedCount)'
 
-        POD=$(kubectl -n -report get pods -l app=postgresdb-o jsonpath='{.items[0].metadata.name}') 
+        POD=$(microk8s kubectl -n report get pods -l app=postgresdb \
+          -o jsonpath='{.items[0].metadata.name}')
 
-        microk8s kubectl -n report exec -it "$POD" -- bash -lc \
-          "psql -U app -d reports -v ON_ERROR_STOP=1 -c \"TRUNCATE TABLE public.teacher_assignments, public.assignments, public.submissions, public.reviews RESTART IDENTITY CASCADE;\""
-        '''
+        microk8s kubectl -n report exec "$POD" -- \
+          psql -U app -d reports -v ON_ERROR_STOP=1 \
+          -c "TRUNCATE TABLE public.teacher_assignments, public.assignments, public.submissions, public.reviews RESTART IDENTITY CASCADE;"
+      '''
     }
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
     failure { echo "❌ Deploy fallito — controlla i log" }
