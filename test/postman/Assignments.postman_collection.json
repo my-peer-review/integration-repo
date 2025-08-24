@@ -174,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Esercizio UML8\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-06-15T23:59:00\",\r\n  \"teacherId\": \"prof123\",\r\n  \"students\": [\"us-00001\", \"us-00002\", \"us-00003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Esercizio UML8\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-06-15T23:59:00\",\r\n  \"teacherId\": \"prof123\",\r\n  \"students\": [\"{{student_id}}\", \"us-00002\", \"us-00003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -461,7 +461,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"stu001\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
