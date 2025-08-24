@@ -30,6 +30,25 @@ pipeline {
       }
     }
 
+    stage('Cancellazione deployments') {
+      steps {
+        sh '''
+          set -e
+          if [ "$MODE" = "push" ]; then
+            for ns in $NS_LIST; do
+              echo "Cancellazione deployment in $ns"
+              "$MK8S" kubectl delete deploy --all -n "$ns" --ignore-not-found || true
+            done
+          elif [ "$MODE" = "single" ]; then
+            echo "Cancellazione deployment del servizio $SVC"
+            "$MK8S" kubectl -n "$SVC" delete deploy "$SVC" --ignore-not-found || true
+          else
+            echo "MODE non supportato: $MODE"; exit 1
+          fi
+        '''
+      }
+    }
+
     stage('Recreate namespaces & base manifests') {
       steps {
         sh '''
@@ -45,25 +64,6 @@ pipeline {
           else
             # rollout del solo microservizio
             "$MK8S" kubectl apply -R -f "$K8S_DIR/services/$SVC"
-          fi
-        '''
-      }
-    }
-
-    stage('Cancellazione deployments') {
-      steps {
-        sh '''
-          set -e
-          if [ "$MODE" = "push" ]; then
-            for ns in $NS_LIST; do
-              echo "Cancellazione deployment in $ns"
-              "$MK8S" kubectl delete deploy --all -n "$ns" --ignore-not-found || true
-            done
-          elif [ "$MODE" = "single" ]; then
-            echo "Cancellazione deployment del servizio $SVC"
-            "$MK8S" kubectl -n "$SVC" delete deploy "$SVC" --ignore-not-found || true
-          else
-            echo "MODE non supportato: $MODE"; exit 1
           fi
         '''
       }
