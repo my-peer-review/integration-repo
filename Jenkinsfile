@@ -36,7 +36,7 @@ pipeline {
           NS="user-manager assignment submission review"
 
           for ns in $NS; do
-            echo "🧨 Cancello tutti i deployment in $ns"
+            echo "Cancellazione deployment in $ns"
             ${MK8S} kubectl delete deploy --all -n "$ns" --ignore-not-found || true
           done
         '''
@@ -47,8 +47,7 @@ pipeline {
       when { expression { env.MODE == 'push' } }
       steps {
         sh '''
-          set -Eeuo pipefail
-          echo "📦 Applying base manifests…"
+          echo "Applying manifests…"
           ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml"
           ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases"
           ${MK8S} kubectl apply -R -f "${K8S_DIR}/services"
