@@ -50,7 +50,7 @@ pipeline {
       }
     }
 
-    stage('Recreate namespaces & base manifests') {
+    stage('Cancellazione deployments') {
       steps {
         sh '''
           set -e
@@ -69,7 +69,7 @@ pipeline {
       }
     }
 
-    stage('Wait for Deployments') {
+    stage('Rollout SINGLE all Deployments') {
       when { expression { env.MODE == 'push' } }
       steps {
         sh '''
@@ -89,7 +89,7 @@ pipeline {
       }
     }
 
-    stage('Rollout SINGLE (trigger=single)') {
+    stage('Rollout SINGLE service (trigger=single)') {
       when { expression { env.MODE == 'single' } }
       steps {
         echo "Rollout del servizio: ${env.SVC}"
