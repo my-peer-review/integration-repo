@@ -57,9 +57,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments/health",
+					"raw": "{{cluster_url}}/api/v1/assignments/health",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -174,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"prof123\",\r\n  \"students\": [\"stu001\", \"stu002\", \"stu003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Esercizio UML8\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-06-15T23:59:00\",\r\n  \"teacherId\": \"prof123\",\r\n  \"students\": [\"us-00001\", \"us-00002\", \"us-00003\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -182,9 +182,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments",
+					"raw": "{{cluster_url}}/api/v1/assignments",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -295,9 +295,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments",
+					"raw": "{{cluster_url}}/api/v1/assignments",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -407,9 +407,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments",
+					"raw": "{{cluster_url}}/api/v1/assignments",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -504,9 +504,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{cluster_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -593,9 +593,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{cluster_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -672,9 +672,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments/{{assignment_id}}",
+					"raw": "{{cluster_url}}/api/v1/assignments/{{assignment_id}}",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",

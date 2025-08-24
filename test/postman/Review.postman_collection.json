@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2741f2e9-4014-481b-97a3-aa58f16fd43f",
+		"_postman_id": "747bf8b8-62da-40d1-96d2-5734da97fcbb",
 		"name": "Review",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43196341"
@@ -117,9 +117,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{assignment_url}}/api/v1/assignments",
+					"raw": "{{cluster_url}}/api/v1/assignments",
 					"host": [
-						"{{assignment_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -242,9 +242,9 @@
 					]
 				},
 				"url": {
-					"raw": "{{submissions_url}}/api/v1/submissions",
+					"raw": "{{cluster_url}}/api/v1/submissions",
 					"host": [
-						"{{submissions_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -368,9 +368,9 @@
 					]
 				},
 				"url": {
-					"raw": "{{submissions_url}}/api/v1/submissions",
+					"raw": "{{cluster_url}}/api/v1/submissions",
 					"host": [
-						"{{submissions_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -480,9 +480,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews/process",
+					"raw": "{{cluster_url}}/api/v1/reviews/process",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -593,9 +593,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews/assignment/{{assignment_id}}",
+					"raw": "{{cluster_url}}/api/v1/reviews/assignment/{{assignment_id}}",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -688,9 +688,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews/assignment/{{assignment_id}}",
+					"raw": "{{cluster_url}}/api/v1/reviews/assignment/{{assignment_id}}",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -821,9 +821,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews?stato=pending",
+					"raw": "{{cluster_url}}/api/v1/reviews?stato=pending",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -930,9 +930,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews?stato=complete",
+					"raw": "{{cluster_url}}/api/v1/reviews?stato=complete",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -1049,9 +1049,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews/{{review_id}}",
+					"raw": "{{cluster_url}}/api/v1/reviews/{{review_id}}",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -1151,9 +1151,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews/{{review_id}}",
+					"raw": "{{cluster_url}}/api/v1/reviews/{{review_id}}",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -1274,9 +1274,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{review_url}}/api/v1/reviews?stato=complete",
+					"raw": "{{cluster_url}}/api/v1/reviews?stato=complete",
 					"host": [
-						"{{review_url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",

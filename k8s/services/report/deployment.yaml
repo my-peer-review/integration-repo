@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: submission
-  namespace: submission
+  name: report
+  namespace: report
   labels:
-    app: submission
+    app: report
 spec:
-  replicas: 1
   strategy:
     type: Recreate
+  replicas: 1
   selector:
     matchLabels:
-      app: submission
+      app: report
   template:
     metadata:
       labels:
-        app: submission
+        app: report
     spec:
       imagePullSecrets:
         - name: dockerhub-cred
       automountServiceAccountToken: false
       containers:
         - name: app
-          image: docker.io/ale175/service-submission:latest
+          image: docker.io/ale175/service-report:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 6060
+            - containerPort: 9090
           env:
             # === JWT: letti direttamente dal Secret ===
             - name: JWT_ALGORITHM
@@ -33,20 +33,15 @@ spec:
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: submission-secrets
+                  name: report-secrets
                   key: jwt_public.pem
 
-            # === Mongo: letti da ConfigMap ===
-            - name: MONGO_URI
+            # === POSTGRES: letti da Secrets ===
+            - name: POSTGRES_URL
               valueFrom:
-                configMapKeyRef:
-                  name: submission-config        
-                  key: MONGO_URI_SUBMISSIONS
-            - name: MONGO_DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: submission-config        
-                  key: MONGO_DB_NAME_SUBMISSIONS
+                secretKeyRef:
+                  name: report-secrets
+                  key: POSTGRES_URL
 
             # === RabbitMQ: da secrets ===
             - name: RABBITMQ_PASSWORD
@@ -64,14 +59,14 @@ spec:
 
           readinessProbe:
             httpGet:
-              path: /api/v1/submissions/health
-              port: 6060
+              path: /api/v1/report/health
+              port: 9090
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /api/v1/submissions/health
-              port: 6060
+              path: /api/v1/report/health
+              port: 9090
             initialDelaySeconds: 10
             periodSeconds: 10
 

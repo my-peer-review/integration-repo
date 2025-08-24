@@ -1,76 +1,11 @@
 {
 	"info": {
-		"_postman_id": "d33f6a2a-f902-4d50-9826-7b8ae2114788",
-		"name": "Submissions",
+		"_postman_id": "2741f2e9-4014-481b-97a3-aa58f16fd43f",
+		"name": "Report",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43196341"
 	},
 	"item": [
-		{
-			"name": "helth_check",
-			"request": {
-				"auth": {
-					"type": "jwt",
-					"jwt": [
-						{
-							"key": "payload",
-							"value": "{\r\n  \"sub\": \"stu001\",\r\n  \"role\": \"student\",\r\n  \"iat\": 1754300449,\r\n  \"exp\": 1954722449\r\n}",
-							"type": "string"
-						},
-						{
-							"key": "privateKey",
-							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
-							"type": "string"
-						},
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "algorithm",
-							"value": "RS256",
-							"type": "string"
-						},
-						{
-							"key": "isSecretBase64Encoded",
-							"value": false,
-							"type": "boolean"
-						},
-						{
-							"key": "headerPrefix",
-							"value": "Bearer",
-							"type": "string"
-						},
-						{
-							"key": "queryParamKey",
-							"value": "token",
-							"type": "string"
-						},
-						{
-							"key": "header",
-							"value": "{}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{cluster_url}}/api/v1/submissions/health",
-					"host": [
-						"{{cluster_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"submissions",
-						"health"
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "create assignament",
 			"event": [
@@ -174,7 +109,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Esercizio UML6\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"{{teacher_id}}\",\r\n  \"students\": [\"{{student_id}}\", \"{{student2_id}}\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
+					"raw": "{\r\n  \"title\": \"Esercizio UML7\",\r\n  \"description\": \"Realizzare un diagramma delle classi per un sistema e-commerce.\",\r\n  \"deadline\": \"2025-09-15T23:59:00\",\r\n  \"teacherId\": \"{{teacher_id}}\",\r\n  \"students\": [\"{{student_id}}\", \"us-00002\"],\r\n  \"content\": \"Disegna un diagramma UML con almeno 5 classi, includendo relazioni e attributi principali.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -196,7 +131,7 @@
 			"response": []
 		},
 		{
-			"name": "create submission",
+			"name": "create submission 1",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -232,19 +167,10 @@
 							"// assignment coerente\r",
 							"pm.test(\"assignment id coerente con URL\", () => {\r",
 							"  pm.expect(json.assignmentId).to.eql(pm.variables.get(\"assignment_id\"));\r",
-							"});\r",
-							"\r",
-							"// files presenti\r",
-							"pm.test(\"files presenti\", () => {\r",
-							"    pm.expect(json.files).to.be.an(\"array\");\r",
-							"    if (json.files.length > 0) {\r",
-							"        pm.expect(json.files[0].filename).to.be.a(\"string\").and.not.empty;\r",
-							"        pm.expect(json.files[0].downloadUrl).to.be.a(\"string\").and.not.empty;\r",
-							"    }\r",
 							"});\r",
 							"\r",
 							"// aggiorna L’AMBIENTE, non la collection\r",
-							"pm.environment.set(\"submission_id\", json.submissionId);\r",
+							"pm.environment.set(\"submission1_id\", json.submissionId);\r",
 							""
 						],
 						"type": "text/javascript",
@@ -305,13 +231,8 @@
 					"formdata": [
 						{
 							"key": "content",
-							"value": "La mia soluzione prevede un diagramma con le seguenti classi: Cliente, Prodotto, Ordine, Pagamento, Spedizione...",
+							"value": "La mia soluzione prevede un schema...",
 							"type": "text"
-						},
-						{
-							"key": "files",
-							"type": "file",
-							"src": "./test/postman/test-assets/test.txt"
 						},
 						{
 							"key": "assignmentId",
@@ -335,7 +256,7 @@
 			"response": []
 		},
 		{
-			"name": "create submission with out file",
+			"name": "create submission 2",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -372,6 +293,10 @@
 							"pm.test(\"assignment id coerente con URL\", () => {\r",
 							"  pm.expect(json.assignmentId).to.eql(pm.variables.get(\"assignment_id\"));\r",
 							"});\r",
+							"\r",
+							"\r",
+							"// aggiorna L’AMBIENTE, non la collection\r",
+							"pm.environment.set(\"submission2_id\", json.submissionId);\r",
 							""
 						],
 						"type": "text/javascript",
@@ -385,7 +310,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"{{student2_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"us-00002\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -432,19 +357,13 @@
 					"formdata": [
 						{
 							"key": "content",
-							"value": "La mia soluzione prevede un diagramma con le seguenti classi: Cliente, Prodotto, Ordine, Pagamento, Spedizione...",
+							"value": "La mia soluzione prevede un diagramma...",
 							"type": "text"
 						},
 						{
 							"key": "assignmentId",
 							"value": "{{assignment_id}}",
 							"type": "text"
-						},
-						{
-							"key": "files",
-							"type": "file",
-							"src": [],
-							"disabled": true
 						}
 					]
 				},
@@ -463,35 +382,166 @@
 			"response": []
 		},
 		{
-			"name": "get submissions as teacher",
+			"name": "create review",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type è JSON\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La risposta ha il campo 'message'\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "RS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentId\": \"{{assignment_id}}\",\r\n  \"automatic_mode\": true,\r\n  \"deadline\": \"2025-10-15T23:59:00\",\r\n  \"lista_assegnazioni\": [\r\n    { \"reviewer\": \"us-00001\", \"submissionId\": \"{{submission2_id}}\" },\r\n    { \"reviewer\": \"us-00002\", \"submissionId\": \"{{submission1_id}}\" }\r\n\r\n  ],\r\n  \"rubrica\": [\r\n    { \"criterio\": \"Chiarezza\" },\r\n    { \"criterio\": \"Correttezza\" },\r\n    { \"criterio\": \"Completezza\" }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cluster_url}}/api/v1/reviews/process",
+					"host": [
+						"{{cluster_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reviews",
+						"process"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pending reviews as student",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"let jsonData;\r",
+							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"  pm.expect(function () { jsonData = pm.response.json(); }).to.not.throw();\r",
 							"});\r",
 							"\r",
 							"pm.test(\"La risposta è un array\", function () {\r",
-							"    let jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"  pm.expect(jsonData).to.be.an(\"array\");\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Ogni oggetto ha i campi richiesti\", function () {\r",
-							"    let jsonData = pm.response.json();\r",
-							"\r",
-							"    jsonData.forEach(item => {\r",
-							"        pm.expect(item).to.have.property(\"assignmentId\");\r",
-							"        pm.expect(item).to.have.property(\"studentId\");\r",
-							"        pm.expect(item).to.have.property(\"content\");\r",
-							"        pm.expect(item).to.have.property(\"submissionId\");\r",
-							"        pm.expect(item).to.have.property(\"assignmentId\");\r",
-							"        pm.expect(item).to.have.property(\"createdAt\");\r",
-							"        pm.expect(item).to.have.property(\"files\");\r",
-							"    });\r",
+							"  jsonData.forEach(item => {\r",
+							"    pm.expect(item).to.have.property(\"deadline\");\r",
+							"    pm.expect(item).to.have.property(\"assignmentId\");\r",
+							"    pm.expect(item).to.have.property(\"submissionId\");\r",
+							"    pm.expect(item).to.have.property(\"reviewerId\");\r",
+							"    pm.expect(item).to.have.property(\"createdAt\");\r",
+							"    pm.expect(item).to.have.property(\"stato\");\r",
+							"    pm.expect(item).to.have.property(\"valutazione\");\r",
+							"  });\r",
 							"});\r",
 							"\r",
+							"pm.test(\"Ogni elemento di 'valutazione' ha le proprietà corrette\", function () {\r",
+							"  jsonData.forEach(item => {\r",
+							"    if (Array.isArray(item.valutazione)) {\r",
+							"      item.valutazione.forEach(v => {\r",
+							"        pm.expect(v).to.have.all.keys(\"criterio\", \"punteggio\");\r",
+							"        pm.expect(v.punteggio).to.be.a(\"number\");\r",
+							"      });\r",
+							"    }\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"// salva review_id se presente\r",
+							"if (Array.isArray(jsonData) && jsonData.length && jsonData[0].reviewId) {\r",
+							"  pm.environment.set(\"review_id\", String(jsonData[0].reviewId));\r",
+							"}\r",
 							""
 						],
 						"type": "text/javascript",
@@ -502,258 +552,17 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
 						],
 						"type": "text/javascript",
 						"packages": {}
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "jwt",
-					"jwt": [
-						{
-							"key": "payload",
-							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
-							"type": "string"
-						},
-						{
-							"key": "privateKey",
-							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
-							"type": "string"
-						},
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "algorithm",
-							"value": "RS256",
-							"type": "string"
-						},
-						{
-							"key": "isSecretBase64Encoded",
-							"value": false,
-							"type": "boolean"
-						},
-						{
-							"key": "headerPrefix",
-							"value": "Bearer",
-							"type": "string"
-						},
-						{
-							"key": "queryParamKey",
-							"value": "token",
-							"type": "string"
-						},
-						{
-							"key": "header",
-							"value": "{}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{cluster_url}}/api/v1/assignments/{{assignment_id}}/submissions",
-					"host": [
-						"{{cluster_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"assignments",
-						"{{assignment_id}}",
-						"submissions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get single submission",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response schema matches expected structure\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    \r",
-							"    pm.expect(responseData).to.be.an('object');\r",
-							"    pm.expect(responseData).to.have.all.keys('assignmentId', 'studentId', 'content', 'submissionId', 'createdAt', 'files');\r",
-							"    \r",
-							"    pm.expect(responseData.files).to.be.an('array');\r",
-							"    responseData.files.forEach(file => {\r",
-							"        pm.expect(file).to.be.an('object');\r",
-							"        pm.expect(file).to.have.all.keys('filename', 'path', 'size');\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Files array contains required fields\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    \r",
-							"    pm.expect(responseData).to.be.an('object');\r",
-							"    pm.expect(responseData.files).to.be.an('array').that.is.not.empty;\r",
-							"\r",
-							"    responseData.files.forEach(file => {\r",
-							"        pm.expect(file).to.have.all.keys('filename', 'path', 'size');\r",
-							"        pm.expect(file.filename).to.be.a('string').that.is.not.empty;\r",
-							"        pm.expect(file.path).to.be.a('string').that.is.not.empty;\r",
-							"        pm.expect(file.size).to.be.a('number').that.is.at.least(0); // Fixed syntax error here\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Size is a non-negative integer\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    \r",
-							"    pm.expect(responseData).to.be.an('object');\r",
-							"    responseData.files.forEach(file => {\r",
-							"        pm.expect(file.size).to.be.a('number').and.to.be.at.least(0, \"Size should be a non-negative integer\");\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"CreatedAt is in a valid date format\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    \r",
-							"    pm.expect(responseData).to.have.property('createdAt').that.is.a('string').and.satisfies(dateString => {\r",
-							"        return !isNaN(Date.parse(dateString));\r",
-							"    }, \"CreatedAt should be a valid date string\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "jwt",
-					"jwt": [
-						{
-							"key": "payload",
-							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
-							"type": "string"
-						},
-						{
-							"key": "privateKey",
-							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
-							"type": "string"
-						},
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "algorithm",
-							"value": "RS256",
-							"type": "string"
-						},
-						{
-							"key": "isSecretBase64Encoded",
-							"value": false,
-							"type": "boolean"
-						},
-						{
-							"key": "headerPrefix",
-							"value": "Bearer",
-							"type": "string"
-						},
-						{
-							"key": "queryParamKey",
-							"value": "token",
-							"type": "string"
-						},
-						{
-							"key": "header",
-							"value": "{}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{cluster_url}}/api/v1/submissions/{{submission_id}}",
-					"host": [
-						"{{cluster_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"submissions",
-						"{{submission_id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get submissions as student",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"La risposta è un array\", function () {\r",
-							"    let jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Ogni oggetto ha i campi richiesti\", function () {\r",
-							"    let jsonData = pm.response.json();\r",
-							"\r",
-							"    jsonData.forEach(item => {\r",
-							"        pm.expect(item).to.have.property(\"assignmentId\");\r",
-							"        pm.expect(item).to.have.property(\"studentId\");\r",
-							"        pm.expect(item).to.have.property(\"content\");\r",
-							"        pm.expect(item).to.have.property(\"submissionId\");\r",
-							"        pm.expect(item).to.have.property(\"assignmentId\");\r",
-							"        pm.expect(item).to.have.property(\"createdAt\");\r",
-							"        pm.expect(item).to.have.property(\"files\");\r",
-							"    });\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "jwt",
@@ -802,51 +611,50 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "{{cluster_url}}/api/v1/assignments/{{assignment_id}}/submissions",
+					"raw": "{{cluster_url}}/api/v1/reviews?stato=pending",
 					"host": [
 						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"assignments",
-						"{{assignment_id}}",
-						"submissions"
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "stato",
+							"value": "pending"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "delete submission",
+			"name": "patch review",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response status code is 204\", function () {\r",
+							"pm.test(\"Status code is 204\", function () {\r",
 							"    pm.response.to.have.status(204);\r",
-							"});\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
 							"\r",
-							"pm.test(\"Nessun Content-Type per 204\", function () {\r",
-							"  if (pm.response.code === 204) {\r",
-							"    pm.expect(pm.response.headers.has('Content-Type')).to.be.false;\r",
-							"  }\r",
-							"});\r",
-							"\r",
-							"// 4) Body vuoto (tolleriamo spazi/bom)\r",
-							"pm.test(\"Body vuoto per 204\", function () {\r",
-							"  if (pm.response.code === 204) {\r",
-							"    pm.expect(pm.response.text().trim()).to.equal('');\r",
-							"  }\r",
-							"});\r",
-							"\r",
-							""
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -859,7 +667,7 @@
 					"jwt": [
 						{
 							"key": "payload",
-							"value": "{\r\n  \"sub\": \"{{teacher_id}}\",\r\n  \"role\": \"teacher\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"student\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
 							"type": "string"
 						},
 						{
@@ -899,40 +707,383 @@
 						}
 					]
 				},
-				"method": "DELETE",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\r\n  \"valutazione\": [\r\n    { \"criterio\": \"Chiarezza\",   \"punteggio\": 8 },\r\n    { \"criterio\": \"Correttezza\", \"punteggio\": 9 },\r\n    { \"criterio\": \"Completezza\", \"punteggio\": 7 }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "{{cluster_url}}/api/v1/submissions/{{submission_id}}",
+					"raw": "{{cluster_url}}/api/v1/reviews/{{review_id}}",
 					"host": [
 						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"submissions",
-						"{{submission_id}}"
+						"reviews",
+						"{{review_id}}"
 					]
 				}
 			},
 			"response": []
-		}
-	],
-	"variable": [
-		{
-			"key": "submission_id",
-			"value": ""
 		},
 		{
-			"key": "assignment_id",
-			"value": ""
+			"name": "get report assignments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each element has valid teacherId and numeric counts\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an(\"array\").that.is.not.empty;\r",
+							"    \r",
+							"    responseData.forEach(function(item) {\r",
+							"        pm.expect(item.teacherId)\r",
+							"            .to.exist.and.to.be.a(\"string\")\r",
+							"            .and.to.have.lengthOf.at.least(1, \"teacherId should not be empty\");\r",
+							"        \r",
+							"        pm.expect(item.assignments_aperti)\r",
+							"            .to.be.a(\"number\").and.to.be.at.least(0);\r",
+							"        \r",
+							"        pm.expect(item.assignments_completati)\r",
+							"            .to.be.a(\"number\").and.to.be.at.least(0);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"supervisore\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "RS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cluster_url}}/api/v1/report/assignments",
+					"host": [
+						"{{cluster_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"report",
+						"assignments"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"key": "uploaded_file_path",
-			"value": ""
+			"name": "get report submissions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each element has valid teacherId and numeric counts\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an(\"array\").that.is.not.empty;\r",
+							"    \r",
+							"    responseData.forEach(function(item) {\r",
+							"        pm.expect(item.teacherId)\r",
+							"            .to.exist.and.to.be.a(\"string\")\r",
+							"            .and.to.have.lengthOf.at.least(1, \"teacherId should not be empty\");\r",
+							"        \r",
+							"        pm.expect(item.assignmentId)\r",
+							"            .to.exist.and.to.be.a(\"string\")\r",
+							"            .and.to.have.lengthOf.at.least(1, \"assignmentId should not be empty\");\r",
+							"        \r",
+							"        pm.expect(item.submissions)\r",
+							"            .to.be.a(\"number\").and.to.be.at.least(0);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"supervisore\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "RS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cluster_url}}/api/v1/report/submissions",
+					"host": [
+						"{{cluster_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"report",
+						"submissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get report reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each element has valid teacherId and numeric counts\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an(\"array\").that.is.not.empty;\r",
+							"    \r",
+							"    responseData.forEach(function(item) {\r",
+							"        pm.expect(item.studentId)\r",
+							"            .to.exist.and.to.be.a(\"string\")\r",
+							"            .and.to.have.lengthOf.at.least(1, \"studentId should not be empty\");\r",
+							"        \r",
+							"        pm.expect(item.voto_medio)\r",
+							"            .to.be.a(\"number\").and.to.be.at.least(0);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const iat = Math.floor(Date.now() / 1000);\r",
+							"const exp = iat + 60 * 15; // 15 minuti\r",
+							"\r",
+							"pm.environment.set(\"jwt_iat\", iat);\r",
+							"pm.environment.set(\"jwt_exp\", exp);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "{\r\n  \"sub\": \"{{student_id}}\",\r\n  \"role\": \"supervisore\",\r\n  \"iat\": {{jwt_iat}},\r\n  \"exp\": {{jwt_exp}}\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC96giTw8Q8b71p\nqVzIibow9DEIf6mXPVFpq+ZN+7nHd9cvvjBkqbQLaVvE9KqEbuRxGEdWdJcqE0md\nEMuukhfM7kCav13sdtUk6CrEsmhKN72KYsRht03/j+BaVrIgkTWh8nlQNuj+ieDL\nqEVUuGEAYqVcsSGskJFaGVUObbwyywGhVeDikLPCvkh8QwNTyF0OjfvtD/CPyYLi\nsOzmsr79zC8yWsTfiwe4d2uQ0RUTSdvYNwd9qcuYGX1rQX4q5PEDKsUNM/gJxnen\nArOL+0umZ6XG3ScOP0ZRymnwLViMF7Tjhkw14qCHDllC3J+mMav+rwIMYjkesZMO\nAbL6xUe9AgMBAAECggEAXjsvglISnoI7E6BrXz2nWv7vDW56sYZFTQ90OKF8btKx\nvQi7blcd9MOUO0fDC+8R/mOzkdxL3R6w2fQpfDcVBCP7fk0Rx3C3FZb1EaAMSzcZ\nHv8evfV8CCBVi72UqMAkQnTTaM+2EAZNuf+GVyEdUFmh/zoMoVkiJfiH0Z71UKW6\n9igkivgBB0Z6wUlOwP0mpogR+j5Y0e0Z/Eh/ScJfuJhmDNtlrFNcGDz1Y3ddtXjC\nnL/lHRTZU5EhuWZHXAs6jmv6YOnUlH9VYN6moKlBrtC2oeb1+FvKQC8yZdbrqMti\n7gj3bcAVFiiumGtp5DJrIP47hOGdw041EVvERTMA6QKBgQDkq67g19BO+lCDVnIm\nFp+Qh34FxoA5pzv4pK1kz76G9duptCpvO7nQXERFGMjPZTJZR82+lq1YaM+30SfM\nLghOkW910Go77e8ts9SMInwjuTg1+8WGG20Ym/odg6/LU4f69WpY2K/7jE/GzZpW\ns+FH/uEaeqywD5EASlVcGerT/wKBgQDUnJLPNSYbcqMxbcVGhjOmcVAKSULWoffW\nB0OiJVT6DPIPNKXOA3n8JVnq7ubuNZMv9Arcwc/rZT48fT1SDNaplF3jK/BoqDGW\nkGkvtxbvrzGRDtS+kgmgyqIQ9kgJtEM9F3DiUnqwA9DAdOWPOFiNSZ9boitqAKBP\ngSzKgMA0QwKBgC7UDcsTxx/1WPmcgWHVbjXd2Wv7W5Ty73Aa4Tts47qlrKdTMwF2\nfLXzvzNbQPxf3/CyqKqoFrWtOSSOm5TPtHnKhMXeuXKuZjW4xwUvprZ2HtHHTosJ\nIM1SW+Uha6W65HT7Px0Uuu1LraarwjiRO8hPpO+UQbsIZQxnLJXg5NsnAoGAWoL9\njPDXdD/tcZGFtmxTeLwskvR1W+JAHAGjrVevQXRZaFfFblrUh59vFDD4Ztiv/G4s\nYaaw2UmUoTO/8zo7+J2NCrUd97ACzFJWNVYAkbFHrLVfpHGPX8BkFkyChn8TUOK1\nz+PFD0HQkN4zDDG0oRGCogP773isxqv7YYpGSPkCgYB89iD+Ay+C8OcnC+iOd0jl\nAUOEKksJroGx9p/ENjICQC7XuSQztYBGbLiJDTojHcXMICcY8xvucdGeZopUBa6o\nncrlwnG4X3K4kHSoRqspvC6or2ZNChRKJr9gDlbwese7sEQH9eRfJS+gi6I49v+w\nygLgR03UG5jC+9x6ucRhpw==\n-----END PRIVATE KEY-----",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "RS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cluster_url}}/api/v1/report/reviews",
+					"host": [
+						"{{cluster_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"report",
+						"reviews"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

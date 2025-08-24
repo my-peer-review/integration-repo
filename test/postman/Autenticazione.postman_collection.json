@@ -69,9 +69,53 @@
 					}
 				},
 				"url": {
-					"raw": "{{user-url}}/api/v1/user/register",
+					"raw": "{{cluster_url}}/api/v1/user/register",
 					"host": [
-						"{{user-url}}"
+						"{{cluster_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register teacher duplicato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 409\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(409);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Francesco\",\r\n    \"email\": \"teacher@unisa.it\",\r\n    \"password\": \"teacher123\",\r\n    \"role\": \"teacher\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cluster_url}}/api/v1/user/register",
+					"host": [
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",
@@ -159,9 +203,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{user-url}}/api/v1/user/login",
+					"raw": "{{cluster_url}}/api/v1/user/login",
 					"host": [
-						"{{user-url}}"
+						"{{cluster_url}}"
 					],
 					"path": [
 						"api",

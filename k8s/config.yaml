@@ -39,3 +39,13 @@ metadata:
 data:
   MONGO_DB_NAME_REVIEW: "review"
   MONGO_URI_REVIEW: "mongodb://mongodb.review.svc.cluster.local:27017/review"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: report
+data:
+  PGDATA: /var/lib/postgresql/data/pgdata

@@ -29,17 +29,12 @@ spec:
           env:
             # === JWT: letti direttamente dal Secret ===
             - name: JWT_ALGORITHM
-              value: RS256                       # o il tuo algoritmo
+              value: RS256
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-keys                 # Secret esistente nel ns assignment
+                  name: assignment-secrets
                   key: jwt_public.pem
-            - name: JWT_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-keys
-                  key: jwt_private.pem
 
             # === Mongo: letti da ConfigMap ===
             - name: MONGO_URI
@@ -52,6 +47,7 @@ spec:
                 configMapKeyRef:
                   name: assignment-config        # Deve contenere MONGO_DB_NAME
                   key: MONGO_DB_NAME_ASSIGNMENTS
+                  
             # === RabbitMQ: da secrets ===
             - name: RABBITMQ_PASSWORD
               valueFrom:
