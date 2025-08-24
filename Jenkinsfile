@@ -62,10 +62,15 @@ pipeline {
         sh '''
           set -e
           for ns in $NS_LIST; do
-            # Attende rollout di *tutti* i deployment del namespace
-            "$MK8S" kubectl -n "$ns" rollout status deploy --all --timeout=180s
-            # Attende che risultino "Available" (dipende dalla readinessProbe)
-            "$MK8S" kubectl -n "$ns" wait deploy --all --for=condition=available --timeout=180s
+            deps=$("$MK8S" kubectl -n "$ns" get deploy -o name || true)
+            [ -z "$deps" ] && { echo "ℹ️  Nessun deployment in $ns"; continue; }
+
+            echo "$deps" | while read -r d; do
+              echo "⏳ rollout $d in $ns"
+              "$MK8S" kubectl -n "$ns" rollout status "$d" --timeout=180s
+              # attende che diventi Available (usa le readinessProbe)
+              "$MK8S" kubectl -n "$ns" wait "$d" --for=condition=available --timeout=180s
+            done
           done
         '''
       }
@@ -76,24 +81,23 @@ pipeline {
     steps {
         echo "♻️ Rollout del servizio: ${env.SVC}"
         sh '''
-        set -e
-        NS="${SVC}"
-        DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
+          set -e
+          NS="${SVC}"
+          DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
 
-        if [ -f "${DEP}" ]; then
-            ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
-        fi
+          if [ -f "${DEP}" ]; then
+              ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
+          fi
 
-        microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=0
+          microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=0
 
-        microk8s kubectl wait --for=delete pod -n "${NS}" -l app="${NS}" --timeout=60s || true
+          microk8s kubectl wait --for=delete pod -n "${NS}" -l app="${NS}" --timeout=60s || true
 
-        microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=1
-        microk8s kubectl rollout status deploy -n "${NS}" -l app="${NS}" --timeout=80s || {
-            echo "Rollout fallito"
-            exit 1
-        }
-
+          microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=1
+          microk8s kubectl rollout status deploy -n "${NS}" -l app="${NS}" --timeout=80s || {
+              echo "Rollout fallito"
+              exit 1
+          }
         '''
         }
     }
