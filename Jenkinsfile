@@ -61,14 +61,14 @@ pipeline {
     stage('Wait for Deployments') {
       when { expression { env.MODE == 'push' } }
       steps {
-        sh '''
-          for ns in $NS_LIST; do
+        sh """
+          for ns in ${NS_LIST}; do
             for d in $(${MK8S} kubectl get deploy -n "$ns" -o name); do
               echo "⏳ Attendo rollout $d in $ns"
               ${MK8S} kubectl rollout status -n "$ns" "$d" --timeout=80s
             done
           done
-        '''
+        """
       }
     }
 
