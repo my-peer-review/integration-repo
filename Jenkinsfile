@@ -104,7 +104,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman user-manager') {
-      when { expression { env.SVC == 'user-manager' && env.MODE == "push" } }
+      when { expression { env.SVC == 'user-manager' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Autenticazione.postman_collection.json \
@@ -115,7 +115,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman Assignments') {
-      when { expression { env.SVC == 'assignment' && env.MODE == "push" } }
+      when { expression { env.SVC == 'assignment' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Assignments.postman_collection.json \
@@ -126,7 +126,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman Submissions') {
-      when { expression { env.SVC == 'submission' && env.MODE == "push" } }
+      when { expression { env.SVC == 'submission' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Submissions.postman_collection.json \
@@ -137,7 +137,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman review') {
-      when { expression { env.SVC == 'review' && env.MODE == "push" } }
+      when { expression { env.SVC == 'review' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Review.postman_collection.json \
@@ -148,7 +148,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman Report') {
-      when { expression { env.SVC == 'Report' && env.MODE == "push" } }
+      when { expression { env.SVC == 'Report' || env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Report.postman_collection.json \
