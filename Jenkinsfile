@@ -30,28 +30,41 @@ pipeline {
       }
     }
 
-    stage('Delete Deployments & Pods') {
+    stage('Recreate namespaces & base manifests') {
       steps {
         sh '''
-          for ns in $NS_LIST; do
-            echo "Cancellazione deployment in $ns"
-            ${MK8S} kubectl delete deploy --all -n "$ns" --ignore-not-found || true
-          done
+          set -e
+          if [ "$MODE" = "push" ]; then
+            echo "Applying manifests…"
+            "$MK8S" kubectl apply -f "$K8S_DIR/namespaces.yaml"
+            "$MK8S" kubectl apply -R -f "$K8S_DIR/databases"
+            "$MK8S" kubectl apply -R -f "$K8S_DIR/services"
+            "$MK8S" kubectl apply -f "$K8S_DIR/config.yaml"
+            "$MK8S" kubectl apply -f "$K8S_DIR/secrets.yaml"
+            "$MK8S" kubectl apply -f "$K8S_DIR/ingress.yaml"
+          else
+            # rollout del solo microservizio
+            "$MK8S" kubectl apply -R -f "$K8S_DIR/services/$SVC"
+          fi
         '''
       }
     }
 
     stage('Recreate namespaces & base manifests') {
-      when { expression { env.MODE == 'push' } }
       steps {
         sh '''
-          echo "Applying manifests…"
-          ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml"
-          ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases"
-          ${MK8S} kubectl apply -R -f "${K8S_DIR}/services"
-          ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"
-          ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"
-          ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"
+          set -e
+          if [ "$MODE" = "push" ]; then
+            for ns in $NS_LIST; do
+              echo "Cancellazione deployment in $ns"
+              "$MK8S" kubectl delete deploy --all -n "$ns" --ignore-not-found || true
+            done
+          elif [ "$MODE" = "single" ]; then
+            echo "Cancellazione deployment del servizio $SVC"
+            "$MK8S" kubectl -n "$SVC" delete deploy "$SVC" --ignore-not-found || true
+          else
+            echo "MODE non supportato: $MODE"; exit 1
+          fi
         '''
       }
     }
@@ -63,10 +76,10 @@ pipeline {
           set -e
           for ns in $NS_LIST; do
             deps=$("$MK8S" kubectl -n "$ns" get deploy -o name || true)
-            [ -z "$deps" ] && { echo "ℹ️  Nessun deployment in $ns"; continue; }
+            [ -z "$deps" ] && { echo "Nessun deployment in $ns"; continue; }
 
             echo "$deps" | while read -r d; do
-              echo "⏳ rollout $d in $ns"
+              echo "rollout $d in $ns"
               "$MK8S" kubectl -n "$ns" rollout status "$d" --timeout=180s
               # attende che diventi Available (usa le readinessProbe)
               "$MK8S" kubectl -n "$ns" wait "$d" --for=condition=available --timeout=180s
@@ -77,33 +90,21 @@ pipeline {
     }
 
     stage('Rollout SINGLE (trigger=single)') {
-    when { expression { env.MODE == 'single' } }
-    steps {
-        echo "♻️ Rollout del servizio: ${env.SVC}"
+      when { expression { env.MODE == 'single' } }
+      steps {
+        echo "Rollout del servizio: ${env.SVC}"
         sh '''
           set -e
-          NS="${SVC}"
-          DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
-
-          if [ -f "${DEP}" ]; then
-              ${MK8S} kubectl apply -f "${DEP}" -n "${NS}" || true
-          fi
-
-          microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=0
-
-          microk8s kubectl wait --for=delete pod -n "${NS}" -l app="${NS}" --timeout=60s || true
-
-          microk8s kubectl scale deploy -n "${NS}" -l app="${NS}" --replicas=1
-          microk8s kubectl rollout status deploy -n "${NS}" -l app="${NS}" --timeout=80s || {
-              echo "Rollout fallito"
-              exit 1
-          }
+          NS="$SVC"
+          "$MK8S" kubectl -n "$NS" rollout restart "deploy/$SVC"
+          "$MK8S" kubectl -n "$NS" rollout status  "deploy/$SVC" --timeout=180s
+          "$MK8S" kubectl -n "$NS" wait "deploy/$SVC" --for=condition=available --timeout=180s
         '''
-        }
+      }
     }
 
     stage('Run API Tests with Newman user-manager') {
-      when { expression { env.SVC == 'user-manager' || env.MODE == "push" } }
+      when { expression { env.SVC == 'user-manager' && env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Autenticazione.postman_collection.json \
@@ -114,7 +115,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman Assignments') {
-      when { expression { env.SVC == 'assignment' || env.MODE == "push" } }
+      when { expression { env.SVC == 'assignment' && env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Assignments.postman_collection.json \
@@ -125,7 +126,7 @@ pipeline {
     }
 
     stage('Run API Tests with Newman Submissions') {
-      when { expression { env.SVC == 'submission' || env.MODE == "push" } }
+      when { expression { env.SVC == 'submission' && env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Submissions.postman_collection.json \
@@ -136,10 +137,21 @@ pipeline {
     }
 
     stage('Run API Tests with Newman review') {
-      when { expression { env.SVC == 'review' || env.MODE == "push" } }
+      when { expression { env.SVC == 'review' && env.MODE == "push" } }
       steps {
         sh '''
           newman run ./test/postman/Review.postman_collection.json \
+            -e ./test/postman/postman-env.postman_environment.json \
+            --reporters cli,json
+        '''
+      }
+    }
+
+    stage('Run API Tests with Newman Report') {
+      when { expression { env.SVC == 'Report' && env.MODE == "push" } }
+      steps {
+        sh '''
+          newman run ./test/postman/Report.postman_collection.json \
             -e ./test/postman/postman-env.postman_environment.json \
             --reporters cli,json
         '''
