@@ -32,21 +32,21 @@ pipeline {
 
     stage('Delete Deployments & Pods') {
       steps {
-        sh '''
-          NS="user-manager assignment submission review"
+        sh """
+          NS="user-manager assignment submission review report"
 
-          for ns in $NS; do
+          for ns in ${NS_LIST}; do
             echo "Cancellazione deployment in $ns"
             ${MK8S} kubectl delete deploy --all -n "$ns" --ignore-not-found || true
           done
-        '''
+        """
       }
     }
 
     stage('Recreate namespaces & base manifests') {
       when { expression { env.MODE == 'push' } }
       steps {
-        sh '''
+        sh """
           echo "Applying manifests…"
           ${MK8S} kubectl apply -f "${K8S_DIR}/namespaces.yaml"
           ${MK8S} kubectl apply -R -f "${K8S_DIR}/databases"
@@ -54,14 +54,14 @@ pipeline {
           ${MK8S} kubectl apply -f "${K8S_DIR}/config.yaml"
           ${MK8S} kubectl apply -f "${K8S_DIR}/secrets.yaml"
           ${MK8S} kubectl apply -f "${K8S_DIR}/ingress.yaml"
-        '''
+        """
       }
     }
 
     stage('Wait for Deployments') {
       when { expression { env.MODE == 'push' } }
       steps {
-        sh '''
+        sh """
           NS="user-manager assignment submission review"
 
           for ns in $NS; do
@@ -70,7 +70,7 @@ pipeline {
               ${MK8S} kubectl rollout status -n "$ns" "$d" --timeout=80s
             done
           done
-        '''
+        """
       }
     }
 
@@ -78,7 +78,7 @@ pipeline {
     when { expression { env.MODE == 'single' } }
     steps {
         echo "♻️ Rollout del servizio: ${env.SVC}"
-        sh '''
+        sh """
         set -e
         NS="${SVC}"
         DEP="${K8S_DIR}/services/${SVC}/deployment.yaml"
@@ -97,7 +97,7 @@ pipeline {
             exit 1
         }
 
-        '''
+        """
         }
     }
 
@@ -148,7 +148,7 @@ pipeline {
       
   post {
     always { 
-      sh '''
+      sh """
         microk8s kubectl -n user-manager exec mongodb-0 -- \
           mongosh "mongodb://localhost:27017/users" --quiet \
           --eval 'const r = db.users.deleteMany({}); print("deleted from users.users:", r.deletedCount)'
@@ -179,7 +179,7 @@ pipeline {
         microk8s kubectl -n report exec "$POD" -- \
           psql -U app -d reports -v ON_ERROR_STOP=1 \
           -c "TRUNCATE TABLE public.teacher_assignments, public.assignments, public.submissions, public.reviews RESTART IDENTITY CASCADE;"
-      '''
+      """
     }
     success { echo "✅ Done — MODE=${env.MODE}, SERVICE=${env.SVC}" }
     failure { echo "❌ Deploy fallito — controlla i log" }
