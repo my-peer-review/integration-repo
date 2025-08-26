@@ -22,7 +22,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: app
-          image: docker.io/ale175/service-submission:latest
+          image: docker.io/ale175/service-submission:test
           imagePullPolicy: Always
           ports:
             - containerPort: 6060
