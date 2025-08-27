@@ -44,16 +44,17 @@ spec:
                 configMapKeyRef:
                   name: postgres-config
                   key: PGDATA
-          readinessProbe:
-            exec:
-              command: ["pg_isready", "-U", "appuser"]
-            initialDelaySeconds: 10
-            periodSeconds: 5
           livenessProbe:
-            exec:
-              command: ["pg_isready", "-U", "appuser"]
+            tcpSocket: { port: 5432 }
             initialDelaySeconds: 20
             periodSeconds: 10
+            failureThreshold: 3
+
+          readinessProbe:
+            tcpSocket: { port: 5432 }
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 6
           resources:
             requests:
               cpu: "100m"
