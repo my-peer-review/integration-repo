@@ -5,7 +5,7 @@ metadata:
   namespace: assignment
 data:
   MONGO_DB_NAME_ASSIGNMENTS: "assignment"
-  MONGO_URI_ASSIGNMENTS: "mongodb://mongodb:27017/assignment"
+  MONGO_URI_ASSIGNMENTS: "mongodb://mongodb.svc.cluster.local.:27017/assignment"
 
 ---
 
@@ -16,7 +16,7 @@ metadata:
   namespace: submission
 data:
   MONGO_DB_NAME_SUBMISSIONS: "submission"
-  MONGO_URI_SUBMISSIONS: "mongodb://mongodb:27017/submission"
+  MONGO_URI_SUBMISSIONS: "mongodb://mongodb.svc.cluster.local.:27017/submission"
 
 ---
 
@@ -27,7 +27,7 @@ metadata:
   namespace: user-manager
 data:
   MONGO_DB_NAME_USER: "users"
-  MONGO_URI_USER: "mongodb://mongodb:27017/users"
+  MONGO_URI_USER: "mongodb://mongodb.svc.cluster.local.:27017/users"
 
 ---
 
@@ -38,7 +38,7 @@ metadata:
   namespace: review
 data:
   MONGO_DB_NAME_REVIEW: "review"
-  MONGO_URI_REVIEW: "mongodb://mongodb:27017/review"
+  MONGO_URI_REVIEW: "mongodb://mongodb.svc.cluster.local.:27017/review"
 
 ---
 
