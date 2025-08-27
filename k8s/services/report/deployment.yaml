@@ -55,7 +55,7 @@ spec:
                   name: rabbitmq-credentials
                   key: rabbitmq-username
             - name: RABBITMQ_URL
-              value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local:5672/%2f"
+              value: "amqp://$(RABBITMQ_USERNAME):$(RABBITMQ_PASSWORD)@rabbitmq.rabbitmq.svc.cluster.local.:5672/%2f"
 
           startupProbe:
             httpGet:
